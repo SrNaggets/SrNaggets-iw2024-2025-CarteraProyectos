@@ -1,0 +1,23 @@
+### **1. Cartera de Proyectos TI**
+La **cartera de proyectos de TI** es un conjunto de proyectos gestionados por una organización que buscan alinear las tecnologías de la información (TI) con la estrategia de la institución, en este caso, una universidad. Estos proyectos son temporales, tienen un objetivo específico, y pueden estar agrupados en **programas** que ayudan a coordinar y priorizar los esfuerzos para maximizar el valor estratégico.
+
+### **2. Gobierno de las TI y Alineamiento Estratégico**
+El **gobierno de las TI** es fundamental para asegurar que los proyectos de TI apoyan la misión y visión estratégica de la universidad. Esto incluye:
+- **Estructuras**: Personas y comités responsables de tomar decisiones sobre TI.
+- **Comunicación**: Proceso de transmitir decisiones clave a los equipos responsables.
+- **Alineamiento estratégico**: Optimizar la relación entre las TI y los objetivos de la institución.
+
+El estándar **ISO/IEC 38500** establece cómo dirigir y controlar las TI a nivel estratégico, garantizando que las decisiones sobre las inversiones en TI sean alineadas con los objetivos de la universidad.
+
+### **3. Selección y Priorización de Proyectos**
+Un aspecto clave del éxito de los proyectos de TI es la **selección y priorización** dentro de la cartera. Esta selección se basa en:
+- La **contribución estratégica** de cada proyecto.
+- El **impacto en los usuarios** (profesores, estudiantes, administradores).
+- La capacidad de las TI para ofrecer **beneficios medibles** (Key Performance Indicators - KPI).
+
+### **4. Implementación y Evaluación**
+La implementación de proyectos debe incluir una evaluación continua de su **rendimiento** y **conformidad** con las normativas, lo que asegura que las inversiones en TI generen valor. Además, es crucial evaluar la **satisfacción de los interesados** para medir el éxito real del proyecto.
+
+### **5. Roles y Responsabilidades**
+En el proceso de gobernanza de las TI, el **CIO** (Chief Information Officer) juega un papel central al coordinar entre la estrategia universitaria y los equipos de TI. A nivel operativo, los equipos de TI deben implementar las decisiones del CIO para cumplir con los objetivos estratégicos.
+

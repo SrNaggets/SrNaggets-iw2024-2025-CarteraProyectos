@@ -1,0 +1,53 @@
+### Requisitos del sistema
+
+#### Requisitos funcionales
+1. **Gestión de propuestas de proyectos**:
+   - Los interesados deben poder presentar propuestas de proyectos TI a través del sistema.
+   - Los promotores podrán avalar las propuestas recibidas.
+   - El sistema debe notificar a los usuarios sobre el estado de sus solicitudes y proyectos aceptados.
+
+2. **Gestión de cartera de proyectos**:
+   - Debe existir una interfaz que permita visualizar el estado actual de la cartera de proyectos.
+   - Cualquier usuario podrá acceder a esta interfaz para consultar el estado de los proyectos.
+
+3. **Prioritización de proyectos**:
+   - El CIO debe poder priorizar los proyectos según su alineamiento estratégico con la universidad.
+   - Los miembros de la Oficina Técnica de Proyectos (OTP) deben valorar las alternativas técnicas y recursos necesarios.
+   - Deben utilizarse rúbricas parametrizables para evaluar los proyectos.
+
+4. **Gestión del avance de proyectos**:
+   - El sistema debe permitir gestionar el grado de avance de los proyectos admitidos.
+
+#### Requisitos no funcionales
+1. **Seguridad**:
+   - El sistema debe garantizar que solo usuarios autorizados (CIO, OTP, interesados) puedan acceder a ciertas funcionalidades, especialmente las relacionadas con la gestión de proyectos.
+
+2. **Rendimiento**:
+   - La aplicación debe ser capaz de manejar múltiples solicitudes de proyectos simultáneamente sin comprometer su rendimiento.
+   
+3. **Escalabilidad**:
+   - El sistema debe ser capaz de adaptarse al crecimiento en el número de proyectos y usuarios sin que esto afecte significativamente su desempeño.
+
+4. **Tecnología**:
+   - Debe implementarse con **Java 17/21**, el **Spring Framework 6** y **Vaadin 24**, según las indicaciones tecnológicas del enunciado.
+
+5. **Accesibilidad**:
+   - El sistema debe cumplir con los estándares de accesibilidad web para asegurar que todas las personas puedan usarlo, independientemente de sus capacidades.
+
+6. **Mantenibilidad**:
+   - El código debe estar bien documentado y estructurado para facilitar futuras modificaciones y mejoras.
+
+### Posibles arquitecturas a usar
+1. **Arquitectura en capas (N-tier architecture)**:
+   - **Capa de presentación**: Utilizando Vaadin 24, puedes desarrollar una interfaz web intuitiva y reactiva para los usuarios (interesados, CIO, OTP).
+   - **Capa de lógica de negocio**: Esta capa gestionaría la lógica de priorización, aval de propuestas, gestión del avance y evaluación de los proyectos. Spring Framework 6 sería ideal para manejar la lógica y flujos.
+   - **Capa de acceso a datos**: Usar bases de datos relacionales (como PostgreSQL o MySQL) o no relacionales (como MongoDB) para almacenar la información de los proyectos y usuarios.
+
+2. **Arquitectura basada en microservicios**:
+   - Puedes dividir el sistema en microservicios independientes para gestionar las propuestas, la cartera de proyectos, la priorización y la gestión de usuarios. Cada microservicio puede ser desarrollado con Spring Boot y conectarse a través de una API RESTful.
+   - Esta arquitectura permite mayor escalabilidad y facilita el mantenimiento y la integración de nuevas funcionalidades.
+
+3. **Arquitectura de servidor cliente (Client-Server)**:
+   - Vaadin puede manejar la interfaz de usuario en el cliente, mientras que un backend en Spring manejaría las solicitudes de los usuarios y la lógica del sistema.
+   - Esta arquitectura es más sencilla en términos de implementación, pero puede no ser tan flexible como una arquitectura basada en microservicios.
+
