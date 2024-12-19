@@ -17,42 +17,68 @@ public class Solicitud {
     @Column(nullable = false, length = 255)
     private String titulo;
 
+    @Lob
+    @Column(nullable = false)
+    private byte[] memoria;
+
+    @Lob
+    @Column(nullable = false)
+    private byte[] tecnico;
+
+    @Lob
+    @Column(nullable = false)
+    private byte[] presupuesto;
+
+    @Column(nullable = false, length = 40)
+    private String nombre;
+
     @ManyToOne
-    @JoinColumn(name = "id_u", nullable = false)
+    @JoinColumn(name = "id_u", nullable = true)
     private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "id_p", nullable = true)
     private Usuario promotor;
 
+    @Column(nullable = false, length = 256)
+    private String interesados;
+
+    @Column(nullable = true)
+    private Long oros;
+
     @Column(nullable = false)
-    private Long oros; // Dinero solicitado
+    private Integer ali1;
 
-    @Column(name = "importacia_p", nullable = false)
-    private Integer importanciaPromotor; // Nota del 1 al 5
+    @Column(nullable = false)
+    private Integer ali2;
 
-    @Column(columnDefinition = "TEXT", nullable = true)
-    private String descripcion;
+    @Column(nullable = false)
+    private Integer ali3;
+
+    @Column(nullable = false)
+    private Integer ali4;
+
+    @Column(nullable = false)
+    private Integer ali5;
+
+    @Column(nullable = false)
+    private Integer ali6;
+
+    @Column(nullable = false)
+    private Integer ali7;
+
+    @Column(nullable = false, length = 200)
+    private String alcance;
+
+    @Column(nullable = true)
+    private Integer importanciaPromotor;
 
     @Column(nullable = false, length = 255)
-    private String estado;
+    private String estado = "solicitado";
 
     @Column(name = "fecha_max", nullable = true)
     private LocalDateTime fechaMaxima;
 
-    @Column(name = "created_at", nullable = true)
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Solicitud solicitud = (Solicitud) o;
-        return id != null && id.equals(solicitud.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

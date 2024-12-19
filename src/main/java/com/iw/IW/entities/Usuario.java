@@ -1,5 +1,6 @@
 package com.iw.IW.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore; // Asegúrate de que se importa correctamente
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,16 +18,26 @@ public class Usuario {
     @Column(nullable = false, length = 255)
     private String nombre;
 
-    @Column(nullable = false)
-    private String contraseña;
-
     @Column(nullable = false, length = 255)
     private String role;
 
     @Column(nullable = false, unique = true, length = 255)
     private String correo;
 
+    @Column(nullable = false, length = 40)
+    @JsonIgnore
+    private String contraseña;
+
+    @Column(nullable = true, length = 10)
+    private String verificacion;
+
+    @Column(name = "tiempo_veri", nullable = true)
+    private LocalDateTime tiempoVeri;
+
     @Column(nullable = false)
+    private Integer veri = 0;
+
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
     @Override
@@ -40,9 +51,5 @@ public class Usuario {
     @Override
     public int hashCode() {
         return getClass().hashCode();
-    }
-    @JsonIgnore
-    public String getContraseña() {
-        return contraseña;
     }
 }

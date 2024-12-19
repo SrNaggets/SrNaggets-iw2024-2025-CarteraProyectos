@@ -1,0 +1,14 @@
+D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\configuration\SecurityConfiguration.java
+D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\controllers\AuthController.java
+D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\entities\EvaluacionEstrategica.java
+D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\entities\EvaluacionTecnica.java
+D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\entities\Proyecto.java
+D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\entities\Solicitud.java
+D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\entities\Usuario.java
+D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\IwApplication.java
+D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\repositories\EvaluacionEstrategicaRepository.java
+D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\repositories\EvaluacionTecnicaRepository.java
+D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\repositories\ProyectoRepository.java
+D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\repositories\SolicitudRepository.java
+D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\repositories\UsuarioRepository.java
+D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\services\UsuarioService.java

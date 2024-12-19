@@ -17,6 +17,12 @@ public class AuthController {
         return usuarioService.registrarUsuario(correo, nombre, contraseña);
     }
 
+    @PostMapping("/verify")
+    public String verificarUsuario(@RequestParam String correo, @RequestParam String codigo) {
+        usuarioService.verificarUsuario(correo, codigo);
+        return "Usuario verificado correctamente";
+    }
+
     @PostMapping("/login")
     public Usuario autenticarUsuario(@RequestParam String correo, @RequestParam String contraseña) {
         return usuarioService.autenticarUsuario(correo, contraseña);

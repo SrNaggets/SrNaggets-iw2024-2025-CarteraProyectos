@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class UsuarioService {
@@ -17,28 +19,77 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private EmailService emailService;
+
+    private static final int EXPIRACION_HORAS = 1;
+
     public Usuario registrarUsuario(String correo, String nombre, String contraseña) {
         Optional<Usuario> usuarioExistente = usuarioRepository.findByCorreo(correo);
         if (usuarioExistente.isPresent()) {
             throw new RuntimeException("El correo ya está registrado");
         }
 
+
+        String codigoVerificacion = generarCodigoVerificacion();
+
+
         Usuario nuevoUsuario = new Usuario();
         nuevoUsuario.setCorreo(correo);
         nuevoUsuario.setNombre(nombre);
-        nuevoUsuario.setRole("normal");
         nuevoUsuario.setContraseña(passwordEncoder.encode(contraseña));
-        return usuarioRepository.save(nuevoUsuario);
+        nuevoUsuario.setRole("normal");
+        nuevoUsuario.setVerificacion(codigoVerificacion);
+        nuevoUsuario.setTiempoVeri(LocalDateTime.now());
+        nuevoUsuario.setVeri(0);
+        usuarioRepository.save(nuevoUsuario);
+
+
+        emailService.enviarCorreoVerificacion(correo, codigoVerificacion);
+
+        return nuevoUsuario;
+    }
+
+    public void verificarUsuario(String correo, String codigo) {
+        Usuario usuario = usuarioRepository.findByCorreo(correo)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+
+        if (usuario.getTiempoVeri().plusHours(EXPIRACION_HORAS).isBefore(LocalDateTime.now())) {
+            usuarioRepository.delete(usuario);
+            throw new RuntimeException("El código ha expirado. Regístrate de nuevo.");
+        }
+
+
+        if (!usuario.getVerificacion().equals(codigo)) {
+            throw new RuntimeException("Código de verificación incorrecto");
+        }
+
+
+        usuario.setVeri(1);
+        usuario.setVerificacion(null);
+        usuarioRepository.save(usuario);
     }
 
     public Usuario autenticarUsuario(String correo, String contraseña) {
         Usuario usuario = usuarioRepository.findByCorreo(correo)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
+        if (usuario.getVeri() == 0) {
+            throw new RuntimeException("Usuario no verificado");
+        }
+
         if (!passwordEncoder.matches(contraseña, usuario.getContraseña())) {
             throw new RuntimeException("Contraseña incorrecta");
         }
 
         return usuario;
+    }
+
+
+    private String generarCodigoVerificacion() {
+        Random random = new Random();
+        int codigo = 100000 + random.nextInt(900000);
+        return String.valueOf(codigo);
     }
 }
