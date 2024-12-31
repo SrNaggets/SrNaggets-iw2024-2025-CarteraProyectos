@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,6 +37,7 @@ public class SolicitudController {
             @RequestParam("ali7") Integer ali7,
             @RequestParam("alcance") String alcance,
             @RequestParam(value = "importanciaPromotor", required = false) Integer importanciaPromotor,
+            @RequestParam("prioridad") Integer prioridad,
             @RequestParam("memoria") MultipartFile memoria,
             @RequestParam("tecnico") MultipartFile tecnico,
             @RequestParam("presupuesto") MultipartFile presupuesto) throws Exception {
@@ -44,10 +47,10 @@ public class SolicitudController {
 
         return solicitudService.crearSolicitud(
                 titulo, nombre, interesados, oros, ali1, ali2, ali3, ali4, ali5, ali6, ali7,
-                alcance, importanciaPromotor, usuario,
-                memoria.getBytes(), tecnico.getBytes(), presupuesto.getBytes()
+                alcance, importanciaPromotor, usuario, memoria.getBytes(), tecnico.getBytes(), presupuesto.getBytes(), prioridad
         );
     }
+
 
     @GetMapping("/todas")
     public List<Solicitud> obtenerTodas() {
@@ -63,12 +66,12 @@ public class SolicitudController {
     public List<Solicitud> obtenerPorUsuario(@PathVariable Long usuarioId) {
         return solicitudService.obtenerPorUsuario(usuarioId);
     }
-
+    @PreAuthorize("@solicitudSecurity.puedeAcceder(#id, authentication)")
     @PutMapping("/actualizar/{id}")
     public Solicitud actualizarSolicitud(@PathVariable Long id, @RequestBody Solicitud solicitudActualizada) {
         return solicitudService.actualizarSolicitud(id, solicitudActualizada);
     }
-
+    @PreAuthorize("@solicitudSecurity.puedeAcceder(#id, authentication)")
     @DeleteMapping("/eliminar/{id}")
     public void eliminarSolicitud(@PathVariable Long id, @RequestParam Long usuarioId) {
         Usuario usuario = new Usuario();
@@ -86,4 +89,24 @@ public class SolicitudController {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(archivo);
     }
+    @PutMapping("/{id}/asignar-promotor")
+    public Solicitud asignarPromotor(@PathVariable Long id, @RequestParam Long promotorId) {
+        return solicitudService.asignarPromotor(id, promotorId);
+    }
+
+    @GetMapping("/cartera")
+    public List<Solicitud> visualizarCartera(@RequestParam(required = false, defaultValue = "fecha") String criterio, Authentication authentication) {
+        return solicitudService.visualizarCartera(authentication, criterio);
+    }
+
+
+    @PreAuthorize("hasRole('CIO') or hasRole('PROMOTOR') or hasRole('OTP')")
+    @PutMapping("/{id}/cambiar-estado")
+    public Solicitud cambiarEstado(
+            @PathVariable Long id,
+            @RequestParam String nuevoEstado,
+            @RequestParam(required = false) String mensajeAdicional) {
+        return solicitudService.cambiarEstado(id, nuevoEstado, mensajeAdicional);
+    }
+
 }

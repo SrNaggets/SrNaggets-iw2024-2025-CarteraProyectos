@@ -14,8 +14,8 @@ public class EvaluacionTecnica {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "id", referencedColumnName = "id")
     private Solicitud solicitud;
 
     @Column(nullable = false, length = 255)
@@ -24,25 +24,12 @@ public class EvaluacionTecnica {
     @Column(name = "fecha_evaluacion", nullable = false)
     private LocalDateTime fechaEvaluacion;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = true, length = 255)
     private String alineamiento;
 
-    @Column(name = "recursosh", nullable = false, length = 255)
-    private String recursosHumanos;
+    @Column(nullable = true, length = 255)
+    private String recursosH;
 
-    @Column(name = "recursosf", nullable = false)
-    private Long recursosFinancieros;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        EvaluacionTecnica that = (EvaluacionTecnica) o;
-        return id != null && id.equals(that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
+    @Column(nullable = true)
+    private Long recursosF;
 }

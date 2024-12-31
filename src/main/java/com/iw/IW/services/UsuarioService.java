@@ -5,7 +5,7 @@ import com.iw.IW.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import java.util.List;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
@@ -84,6 +84,19 @@ public class UsuarioService {
         }
 
         return usuario;
+    }
+
+    public List<Usuario> buscarPromotoresPorNombre(String nombre) {
+        return usuarioRepository.findByRoleAndNombreContainingIgnoreCase("PROMOTOR", nombre);
+    }
+
+    public List<Usuario> buscarPromotoresPorCorreo(String correo) {
+        return usuarioRepository.findByRoleAndCorreoContainingIgnoreCase("PROMOTOR", correo);
+    }
+
+    public Usuario buscarPromotorPorId(Long id) {
+        return usuarioRepository.findByIdAndRole(id, "PROMOTOR")
+                .orElseThrow(() -> new RuntimeException("Promotor no encontrado"));
     }
 
 

@@ -76,9 +76,22 @@ public class Solicitud {
     @Column(nullable = false, length = 255)
     private String estado = "solicitado";
 
+    @Column(nullable = false)
+    private Integer prioridad;
+
     @Column(name = "fecha_max", nullable = true)
     private LocalDateTime fechaMaxima;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    public Integer getPrioridad() {
+        return prioridad;
+    }
+    public void setPrioridad(Integer prioridad) {
+        if (prioridad < 1 || prioridad > 5) {
+            throw new IllegalArgumentException("La prioridad debe estar entre 1 y 5");
+        }
+        this.prioridad = prioridad;
+    }
 }
