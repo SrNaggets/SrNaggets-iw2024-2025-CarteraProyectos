@@ -31,7 +31,7 @@ public class EmailService {
         mailSender.send(mensaje);
     }
 
-    public void enviarCorreoEvaluacionTecnica(String destinatario, String tituloSolicitud, String descripcion, String recursosH, Long recursosF) {
+    public void enviarCorreoEvaluacionTecnica(String destinatario, String tituloSolicitud, String descripcion, String recursosH, Long recursosF, String alineamiento) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
         mensaje.setTo(destinatario);
         mensaje.setSubject("Evaluación Técnica Registrada");
@@ -39,9 +39,11 @@ public class EmailService {
                 "\n\nDescripción: " + descripcion +
                 "\nRecursos Humanos: " + recursosH +
                 "\nRecursos Financieros: " + (recursosF != null ? recursosF : "No especificado") +
+                "\nAlineamiento: " + (alineamiento != null ? alineamiento : "No especificado") +
                 "\n\nGracias.");
         mailSender.send(mensaje);
     }
+
 
     public void enviarCorreoEvaluacionEstrategica(String destinatario, String tituloSolicitud, String descripcion, String alineamiento) {
         SimpleMailMessage mensaje = new SimpleMailMessage();

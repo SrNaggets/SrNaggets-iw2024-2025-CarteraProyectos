@@ -104,6 +104,8 @@ public class SolicitudService {
         return solicitudRepository.findByUsuarioId(usuarioId);
     }
 
+
+
     public Solicitud actualizarSolicitud(Long id, Solicitud solicitudActualizada) {
         Optional<Solicitud> solicitudExistente = solicitudRepository.findById(id);
         if (solicitudExistente.isPresent()) {
