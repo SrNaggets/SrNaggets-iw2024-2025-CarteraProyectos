@@ -41,8 +41,10 @@ public class EvaluacionTecnicaService {
                 solicitud.getTitulo(),
                 evaluacion.getDescripcion(),
                 evaluacion.getRecursosH(),
-                evaluacion.getRecursosF()
+                evaluacion.getRecursosF(),
+                evaluacion.getAlineamiento()
         );
+
         solicitudService.cambiarEstado(solicitudId, "pendiente de evaluación estratégica", null);
         return evaluacionGuardada;
     }
