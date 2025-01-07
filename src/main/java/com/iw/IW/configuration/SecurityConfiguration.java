@@ -63,7 +63,7 @@ public class SecurityConfiguration
 
         for ( Usuario usuario : usuarioRepository.findAll()){
             UserDetails user = User.withUsername(usuario.getNombre())
-                    .password(usuario.getContraseÃ±a())
+                    .password(usuario.getContraseña())
                     .roles(usuario.getRole())
                     .build();
             manager.createUser(user);
