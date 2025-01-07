@@ -49,6 +49,9 @@ public class UsuarioService {
 
         return nuevoUsuario;
     }
+    public void reenviarCorreo(String correo, String codigo){
+        emailService.enviarCorreoVerificacion(correo, codigo);
+    }
 
     public void verificarUsuario(String correo, String codigo) {
         Usuario usuario = usuarioRepository.findByCorreo(correo)
