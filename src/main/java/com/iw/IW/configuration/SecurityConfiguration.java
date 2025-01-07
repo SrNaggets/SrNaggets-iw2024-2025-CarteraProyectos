@@ -20,7 +20,7 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+    /* @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable) //
@@ -32,6 +32,7 @@ public class SecurityConfiguration {
 
         return http.build();
     }
+    */
 
 
     @Bean
