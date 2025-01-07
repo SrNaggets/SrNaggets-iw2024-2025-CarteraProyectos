@@ -10,4 +10,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     List<Usuario> findByRoleAndCorreoContainingIgnoreCase(String role, String correo);
     Optional<Usuario> findByIdAndRole(Long id, String role);
     Optional<Usuario> findByCorreo(String correo);
+    List<Usuario> findByRole(String role);
+    Usuario findByNombre(String nombre);
 }

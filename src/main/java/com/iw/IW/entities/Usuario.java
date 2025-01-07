@@ -1,12 +1,10 @@
 package com.iw.IW.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore; // Asegúrate de que se importa correctamente
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Data
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -40,6 +38,9 @@ public class Usuario {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    public Usuario() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,5 +52,82 @@ public class Usuario {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public String getRole() {
+        return this.role;
+    }
+
+    public String getCorreo() {
+        return this.correo;
+    }
+
+    public String getContraseña() {
+        return this.contraseña;
+    }
+
+    public String getVerificacion() {
+        return this.verificacion;
+    }
+
+    public LocalDateTime getTiempoVeri() {
+        return this.tiempoVeri;
+    }
+
+    public Integer getVeri() {
+        return this.veri;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    @JsonIgnore
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+
+    public void setVerificacion(String verificacion) {
+        this.verificacion = verificacion;
+    }
+
+    public void setTiempoVeri(LocalDateTime tiempoVeri) {
+        this.tiempoVeri = tiempoVeri;
+    }
+
+    public void setVeri(Integer veri) {
+        this.veri = veri;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String toString() {
+        return "Usuario(id=" + this.getId() + ", nombre=" + this.getNombre() + ", role=" + this.getRole() + ", correo=" + this.getCorreo() + ", contraseña=" + this.getContraseña() + ", verificacion=" + this.getVerificacion() + ", tiempoVeri=" + this.getTiempoVeri() + ", veri=" + this.getVeri() + ", createdAt=" + this.getCreatedAt() + ")";
     }
 }
