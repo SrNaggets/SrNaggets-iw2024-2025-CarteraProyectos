@@ -70,7 +70,7 @@ public class Solicitud {
     @Column(nullable = false, length = 200)
     private String alcance;
 
-    @Column(nullable = true)
+    @Column(name = "importancia_p", nullable = true)
     private Integer importanciaPromotor;
 
     @Column(nullable = false, length = 255)

@@ -71,6 +71,10 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
     }
 
+    public void reenviarCorreo(String correo, String codigo){
+        emailService.enviarCorreoVerificacion(correo, codigo);
+    }
+
     public Usuario autenticarUsuario(String correo, String contraseña) {
         Usuario usuario = usuarioRepository.findByCorreo(correo)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -85,6 +89,7 @@ public class UsuarioService {
 
         return usuario;
     }
+
 
     public List<Usuario> buscarPromotoresPorNombre(String nombre) {
         return usuarioRepository.findByRoleAndNombreContainingIgnoreCase("PROMOTOR", nombre);

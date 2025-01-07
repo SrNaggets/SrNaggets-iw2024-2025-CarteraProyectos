@@ -8,6 +8,8 @@ import java.util.Optional;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     List<Usuario> findByRoleAndNombreContainingIgnoreCase(String role, String nombre);
     List<Usuario> findByRoleAndCorreoContainingIgnoreCase(String role, String correo);
+    List<Usuario> findByRole(String role);
     Optional<Usuario> findByIdAndRole(Long id, String role);
     Optional<Usuario> findByCorreo(String correo);
+    Usuario findByNombre(String nombre);
 }
