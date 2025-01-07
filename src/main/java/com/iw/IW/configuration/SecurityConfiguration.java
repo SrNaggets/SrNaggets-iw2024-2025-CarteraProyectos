@@ -20,6 +20,7 @@ public class SecurityConfiguration {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
@@ -29,10 +30,10 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable) //
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/register", "/auth/login", "/auth/verify").permitAll()
-                        .anyRequest().authenticated()
-                )
+                // .authorizeHttpRequests(auth -> auth
+                //        .requestMatchers("/auth/register", "/auth/login", "/auth/verify").permitAll()
+                //        .anyRequest().authenticated()
+                //)
                 .httpBasic(basicConfigurer -> {});
 
         return http.build();
