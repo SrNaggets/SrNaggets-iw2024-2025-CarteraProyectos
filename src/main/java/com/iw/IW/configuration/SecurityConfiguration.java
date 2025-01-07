@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @EnableMethodSecurity
@@ -20,7 +21,12 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
-    /* @Bean
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+   /* @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable) //
@@ -31,8 +37,7 @@ public class SecurityConfiguration {
                 .httpBasic(basicConfigurer -> {});
 
         return http.build();
-    }
-    */
+    }*/
 
 
     @Bean
