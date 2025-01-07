@@ -1,18 +1,5 @@
 package com.iw.IW.configuration;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.client.RestTemplate;
-
-
 import com.iw.IW.entities.Usuario;
 import com.iw.IW.views.LoginView;
 import com.iw.IW.repositories.UsuarioRepository;
@@ -30,14 +17,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-@Configuration
+import org.springframework.web.client.RestTemplate;
+
 @EnableWebSecurity
-public class SecurityConfiguration extends VaadinWebSecurity{
+@Configuration
+public class SecurityConfiguration
+        extends VaadinWebSecurity {
+
+    @Autowired
+    UsuarioRepository usuarioRepository;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
@@ -50,26 +44,46 @@ public class SecurityConfiguration extends VaadinWebSecurity{
                 .permitAll());
 
         super.configure(http);
-
         setLoginView(http, LoginView.class);
     }
 
-   /* @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable) //
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/register", "/auth/login", "/auth/verify").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .httpBasic(basicConfigurer -> {});
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        super.configure(web);
+    }
 
-        return http.build();
-    }*/
-
-
+    /**
+     * Demo UserDetailsManager which only provides two hardcoded
+     * in memory users and their roles.
+     * NOTE: This shouldn't be used in real world applications.
+     */
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-        return authConfig.getAuthenticationManager();
+    public UserDetailsManager userDetailsService() {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+
+        for ( Usuario usuario : usuarioRepository.findAll()){
+            UserDetails user = User.withUsername(usuario.getNombre())
+                    .password(usuario.getContraseÃ±a())
+                    .roles(usuario.getRole())
+                    .build();
+            manager.createUser(user);
+        }
+
+        return manager;
+
+
+        /*
+        UserDetails user =
+                User.withUsername("user")
+                        .password("{noop}user")
+                        .roles("USER")
+                        .build();
+        UserDetails admin =
+                User.withUsername("admin")
+                        .password("{noop}admin")
+                        .roles("ADMIN")
+                        .build();
+        return new InMemoryUserDetailsManager(user, admin);
+        */
     }
 }
