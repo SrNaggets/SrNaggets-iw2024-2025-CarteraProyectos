@@ -164,5 +164,28 @@ public class UsuarioService {
         int codigo = 100000 + random.nextInt(900000);
         return String.valueOf(codigo);
     }
+
+    public Usuario cambiarRolUsuario(String correoUsuario, String nuevoRol, Long idSolicitante) {
+        Usuario solicitante = usuarioRepository.findById(idSolicitante)
+                .orElseThrow(() -> new RuntimeException("Solicitante no encontrado"));
+
+        if (!"CIO".equals(solicitante.getRole())) {
+            throw new RuntimeException("No tienes permisos para cambiar roles");
+        }
+
+        Usuario usuario = usuarioRepository.findByCorreo(correoUsuario)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        if (!List.of("CIO", "OTP", "PROMOTOR", "normal").contains(nuevoRol)) {
+            throw new RuntimeException("Rol inválido");
+        }
+
+        usuario.setRole(nuevoRol);
+        Usuario usuarioActualizado = usuarioRepository.save(usuario);
+
+        emailService.enviarCorreoCambioRol(usuario.getCorreo(), nuevoRol);
+
+        return usuarioActualizado;
+    }
 }
 
