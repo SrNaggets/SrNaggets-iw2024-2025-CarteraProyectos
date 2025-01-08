@@ -44,4 +44,12 @@ public class UsuarioController {
     public Usuario buscarPromotorPorId(@PathVariable Long id) {
         return usuarioService.buscarPromotorPorId(id);
     }
+
+    @PutMapping("/cambiar-rol")
+    public Usuario cambiarRolUsuario(
+            @RequestParam String correoUsuario,
+            @RequestParam String nuevoRol,
+            @RequestParam Long idSolicitante) {
+        return usuarioService.cambiarRolUsuario(correoUsuario, nuevoRol, idSolicitante);
+    }
 }
