@@ -40,7 +40,7 @@ import java.util.Set;
 
 @Route("solicitud")
 @PageTitle("Formulario de solicitud")
-@RolesAllowed({"USER", "ADMIN", "normal", "promotor"})
+@RolesAllowed({"USER", "ADMIN", "normal", "PROMOTOR"})
 public class SolicitudView extends VerticalLayout {
 
     @Autowired SecurityService securityService;
