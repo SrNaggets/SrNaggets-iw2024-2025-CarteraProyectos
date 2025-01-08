@@ -53,6 +53,9 @@ public class UsuarioService {
 
         return nuevoUsuario;
     }
+    public void reenviarCorreo(String correo, String codigo){
+        emailService.enviarCorreoVerificacion(correo, codigo);
+    }
 
     public void verificarUsuario(String correo, String codigo) {
 
@@ -80,10 +83,6 @@ public class UsuarioService {
         usuario.setVeri(1);
         usuario.setVerificacion(null);
         usuarioRepository.save(usuario);
-    }
-
-    public void reenviarCorreo(String correo, String codigo){
-        emailService.enviarCorreoVerificacion(correo, codigo);
     }
 
     public Usuario autenticarUsuario(String correo, String contraseña) {
