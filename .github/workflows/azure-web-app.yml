@@ -1,3 +1,11 @@
+name: Build and deploy JAR app to Azure Web App - WebCarteraProyectos
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,7 +24,7 @@ jobs:
 
       - name: Rename JAR file to app.jar
         run: |
-          mv ${GITHUB_WORKSPACE}/target/*.jar ${GITHUB_WORKSPACE}/target/app.jar
+          mv ${{ github.workspace }}/target/*.jar ${{ github.workspace }}/target/app.jar
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -38,6 +46,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: java-app
+
+      - name: Move JAR file to root directory
+        run: mv java-app/app.jar ./app.jar
       
       - name: Login to Azure
         uses: azure/login@v2
@@ -50,4 +61,4 @@ jobs:
         with:
           app-name: 'WebCarteraProyectos'
           slot-name: 'Production'
-          package: 'app.jar'
+          package: './app.jar'
