@@ -22,17 +22,11 @@ jobs:
       - name: Build with Maven (skip tests)
         run: mvn clean install -DskipTests
 
-      - name: Rename JAR file to java-app.jar
-        run: mv target/*.jar target/java-app.jar
-
-      - name: Verify JAR file after rename
-        run: ls -l target/
-
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/java-app.jar'
+          path: '${{ github.workspace }}/target/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
@@ -42,16 +36,13 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write
-
+  
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: java-app
-
-      - name: Verify JAR file after download
-        run: ls -l
-
+      
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -63,5 +54,5 @@ jobs:
         with:
           app-name: 'WebCarteraProyectos'
           slot-name: 'Production'
-          package: 'java-app.jar'
+          package: '*.jar'
 
