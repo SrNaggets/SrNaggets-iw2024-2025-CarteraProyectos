@@ -66,7 +66,10 @@ public class RegisterView extends VerticalLayout {
         // Agregar los componentes a la vista
         add(formLayout, registerButton);
 
-
+        Button login = new Button("Volver a iniciar sesión", click -> {
+            getUI().ifPresent(ui -> ui.navigate("/login"));
+        });
+        add(login);
 
     }
 
