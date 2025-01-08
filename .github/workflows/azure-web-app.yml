@@ -1,11 +1,3 @@
-name: Build and deploy JAR app to Azure Web App - WebCarteraProyectos
-
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,11 +14,15 @@ jobs:
       - name: Build with Maven (skip tests)
         run: mvn clean install -DskipTests
 
+      - name: Rename JAR file to app.jar
+        run: |
+          mv ${GITHUB_WORKSPACE}/target/*.jar ${GITHUB_WORKSPACE}/target/app.jar
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
+          path: '${{ github.workspace }}/target/app.jar'
 
   deploy:
     runs-on: ubuntu-latest
@@ -54,4 +50,4 @@ jobs:
         with:
           app-name: 'WebCarteraProyectos'
           slot-name: 'Production'
-          package: '*.jar'
+          package: 'app.jar'
