@@ -25,6 +25,19 @@ public class UsuarioController {
     public List<Usuario> buscarPromotoresPorCorreo(@PathVariable String correo) {
         return usuarioService.buscarPromotoresPorCorreo(correo);
     }
+    
+    @PostMapping("/recuperar-contraseña")
+    public void reiniciarContraseña(@RequestParam String correo) {
+        usuarioService.reiniciarContraseña(correo);
+    }
+
+    @PutMapping("/{id}/modificar")
+    public Usuario modificarUsuario(
+            @PathVariable Long id,
+            @RequestParam(required = false) String nuevoNombre,
+            @RequestParam(required = false) String nuevaContraseña) {
+        return usuarioService.modificarUsuario(id, nuevoNombre, nuevaContraseña);
+    }
 
 
     @GetMapping("/promotores/{id}")
