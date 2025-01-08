@@ -72,10 +72,20 @@ public class EmailService {
 
     public void enviarCorreoRecuperacionContraseña(String destinatario, String nuevaContraseña) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
+        mensaje.setFrom("carteradeproyectosiw@gmail.com");
         mensaje.setTo(destinatario);
         mensaje.setSubject("Recuperación de Contraseña");
         mensaje.setText("Hola,\n\nTu contraseña ha sido reiniciada. Tu nueva contraseña es: " + nuevaContraseña +
                 "\n\nPor favor, cámbiala después de iniciar sesión.\n\nGracias.");
+        mailSender.send(mensaje);
+    }
+
+    public void enviarCorreoCambioRol(String destinatario, String nuevoRol) {
+        SimpleMailMessage mensaje = new SimpleMailMessage();
+        mensaje.setFrom("carteradeproyectosiw@gmail.com");
+        mensaje.setTo(destinatario);
+        mensaje.setSubject("Cambio de Rol en el Sistema");
+        mensaje.setText("Hola,\n\nTu rol en el sistema ha sido cambiado a: " + nuevoRol + ".\n\nGracias.");
         mailSender.send(mensaje);
     }
 
