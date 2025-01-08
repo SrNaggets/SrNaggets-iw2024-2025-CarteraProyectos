@@ -54,5 +54,5 @@ jobs:
         with:
           app-name: 'WebCarteraProyectos'
           slot-name: 'Production'
-          package: '*.jar'
+          package: 'target/spring-skeleton-1.0-SNAPSHOT.jar'
 
