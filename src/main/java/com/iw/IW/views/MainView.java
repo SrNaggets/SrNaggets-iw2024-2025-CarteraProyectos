@@ -72,7 +72,13 @@ public class MainView extends VerticalLayout implements BeforeEnterObserver {
                 getUI().ifPresent(ui -> ui.navigate("/evaluacionestrategica"));
             });
             add(avalar);
+
+            Button proyectos = new Button("Proyectos en marcha", click -> {
+                getUI().ifPresent(ui -> ui.navigate("/proyectos"));
+            });
+            add(proyectos);
         }
+
 
 
     }
@@ -82,8 +88,11 @@ public class MainView extends VerticalLayout implements BeforeEnterObserver {
 
         UserDetails user = securityService.getAuthenticatedUser();
 
-        if(usuarioRepository.findByNombre(user.getUsername()).getVeri() == 0){
-            event.rerouteTo(VerificationView.class);
+        if(usuarioRepository.findByCorreo(user.getUsername()).isPresent()){
+            if(usuarioRepository.findByCorreo(user.getUsername()).get().getVeri() == 0){
+                event.rerouteTo(VerificationView.class);
+            }
+
         }
     }
 }

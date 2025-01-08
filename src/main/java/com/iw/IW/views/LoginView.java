@@ -6,12 +6,15 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinService;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
+import jakarta.servlet.http.Cookie;
 
 @Route("login")
 @PageTitle("Login")
@@ -27,6 +30,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
         setJustifyContentMode(JustifyContentMode.CENTER);
         setAlignItems(Alignment.CENTER);
 
+
         // Crear un objeto LoginI18n para manejar la internacionalización
         LoginI18n i18n = LoginI18n.createDefault();
 
@@ -34,7 +38,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
 
         i18n.getForm().setTitle("Inicia sesión para continuar:");
-        i18n.getForm().setUsername("Nombre de usuario");
+        i18n.getForm().setUsername("Correo");
         i18n.getForm().setPassword("Contraseña");
         i18n.getForm().setForgotPassword("¿Olvidaste tu contraseña?");
         i18n.getForm().setSubmit("Iniciar sesión");
@@ -42,6 +46,10 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
         i18n.getErrorMessage().setMessage("Usuario o contraseña incorrectos.");
 
         login.setI18n(i18n);
+
+        login.addForgotPasswordListener(f -> {
+            UI.getCurrent().navigate("/forgotpassword");
+        });
 
         login.setAction("login");
 

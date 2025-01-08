@@ -25,7 +25,9 @@ public class EstrategicasView extends VerticalLayout {
         setAlignItems(FlexComponent.Alignment.AUTO);
 
         Button logout = new Button("Logout", click -> securityService.logout());
-        add(logout);
+        Button principal = new Button("Volver a menú principal", click -> getUI().ifPresent(ui -> ui.navigate("")));
+
+        add(new HorizontalLayout(logout, principal));
 
         List<Solicitud> aux = solicitudService.obtenerPorEstado("pendiente de evaluación estratégica");
 

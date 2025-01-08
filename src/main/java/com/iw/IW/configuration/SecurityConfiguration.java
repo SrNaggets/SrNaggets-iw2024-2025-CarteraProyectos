@@ -62,7 +62,7 @@ public class SecurityConfiguration
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
 
         for ( Usuario usuario : usuarioRepository.findAll()){
-            UserDetails user = User.withUsername(usuario.getNombre())
+            UserDetails user = User.withUsername(usuario.getCorreo())
                     .password(usuario.getContraseña())
                     .roles(usuario.getRole())
                     .build();

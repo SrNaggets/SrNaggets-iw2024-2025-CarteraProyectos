@@ -68,7 +68,9 @@ public class SolicitudView extends VerticalLayout {
             Button logout = new Button("Logout", click ->
                     securityService.logout());
 
-            add(new HorizontalLayout(logout, new Paragraph(user.getUsername()), new Paragraph(user.getAuthorities().toString())));
+            Button principal = new Button("Volver a menú principal", click -> getUI().ifPresent(ui -> ui.navigate("")));
+
+            add(new HorizontalLayout(logout, principal));
 
         }
 
@@ -113,6 +115,7 @@ public class SolicitudView extends VerticalLayout {
         importanciaProm.setPlaceholder("Indique un valor entre 0 y 5");
         importanciaProm.setMin(0);
         importanciaProm.setMax(5);
+        importanciaProm.setWidth("50%");
 
 
         TextField interesados = new TextField("Interesados:");
@@ -253,6 +256,8 @@ public class SolicitudView extends VerticalLayout {
                     this.memoriaBytes, this.tecnicoBytes, this.presupuestoBytes, 2);
 
             sol = solicitudService.asignarPromotor(sol.getId(), usuarioRepository.findByNombre(promotor.getValue()).getId());
+
+            Notification.show("Solicitud creada con éxito", 3000, Notification.Position.TOP_CENTER);
         });
 
         // Theme variants give you predefined extra styles for components.

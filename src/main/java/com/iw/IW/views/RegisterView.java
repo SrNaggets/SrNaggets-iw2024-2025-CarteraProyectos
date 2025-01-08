@@ -6,6 +6,7 @@ import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -25,14 +26,30 @@ public class RegisterView extends VerticalLayout {
 
     public RegisterView(){
 
+        setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
+        setAlignItems(FlexComponent.Alignment.CENTER);
+
+        Button login = new Button("Volver a iniciar sesión", click -> {
+            getUI().ifPresent(ui -> ui.navigate("/login"));
+        });
+        add(login);
+
         TextField usernameField = new TextField("Nombre de usuario");
         PasswordField passwordField = new PasswordField("Contraseña");
+
+        passwordField.setMinLength(6);
+        passwordField.setMaxLength(40);
+
         PasswordField confirmPasswordField = new PasswordField("Confirmar contraseña");
+
+        confirmPasswordField.setMinLength(6);
+        confirmPasswordField.setMaxLength(40);
+
         TextField emailField = new TextField("Correo electrónico");
         Checkbox adminRoleCheckBox = new Checkbox("Rol de administrador");
 
         // Botón de registro
-        Button registerButton = new Button("Registrar");
+        Button registerButton = new Button("Crear nueva cuenta");
 
         // Agregar acción al botón
         registerButton.addClickListener(event -> {
@@ -53,7 +70,10 @@ public class RegisterView extends VerticalLayout {
             Usuario success = usuarioService.registrarUsuario(email, username, password);
 
             if (success.getNombre().equals(username)) {
-                getUI().ifPresent(ui -> ui.navigate("/login"));
+                Notification.show("Registro con éxito", 5000, Notification.Position.TOP_CENTER);
+                remove(login);
+                add(new Button("Volver a inicio de sesión", e -> getUI().ifPresent(ui -> ui.navigate("/login"))));
+
             } else {
                 Notification.show("Hubo un error al registrar el usuario", 3000, Notification.Position.MIDDLE);
             }
@@ -61,16 +81,11 @@ public class RegisterView extends VerticalLayout {
 
         // Crear el formulario y agregar los componentes
         FormLayout formLayout = new FormLayout();
-        formLayout.add(usernameField, passwordField, confirmPasswordField, emailField);
+        add(usernameField, passwordField, confirmPasswordField, emailField);
 
         // Agregar los componentes a la vista
         add(formLayout, registerButton);
 
-        Button login = new Button("Volver a iniciar sesión", click -> {
-            getUI().ifPresent(ui -> ui.navigate("/login"));
-        });
-        add(login);
-
-    }
+        }
 
 }
