@@ -30,10 +30,10 @@ public class EvaluacionTecnicaService {
         Solicitud solicitud = solicitudRepository.findById(solicitudId)
                 .orElseThrow(() -> new RuntimeException("Solicitud no encontrada"));
 
-        evaluacion.setSolicitud(solicitud);
+        evaluacion.setIdS(solicitudId);
         evaluacion.setFechaEvaluacion(LocalDateTime.now());
-        EvaluacionTecnica evaluacionGuardada = evaluacionTecnicaRepository.save(evaluacion);
 
+        EvaluacionTecnica evaluacionGuardada = evaluacionTecnicaRepository.save(evaluacion);
 
         String correoUsuario = solicitud.getUsuario().getCorreo();
         emailService.enviarCorreoEvaluacionTecnica(
@@ -46,6 +46,7 @@ public class EvaluacionTecnicaService {
         );
 
         solicitudService.cambiarEstado(solicitudId, "pendiente de evaluación estratégica", null);
+
         return evaluacionGuardada;
     }
 
