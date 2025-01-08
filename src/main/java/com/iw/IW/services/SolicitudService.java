@@ -4,6 +4,8 @@ import com.iw.IW.entities.Solicitud;
 import com.iw.IW.entities.Usuario;
 import com.iw.IW.repositories.SolicitudRepository;
 import com.iw.IW.repositories.UsuarioRepository;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -128,6 +130,8 @@ public class SolicitudService {
 
             return solicitudRepository.save(solicitud);
         } else {
+            Notification.show("Solicitud no encontrada", 3000, Notification.Position.MIDDLE)
+                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
             throw new RuntimeException("Solicitud no encontrada");
         }
     }
@@ -140,6 +144,8 @@ public class SolicitudService {
             if (usuario.getRole().equals("PROMOTOR") || usuario.getRole().equals("CIO")) {
                 solicitudRepository.delete(solicitud);
             } else {
+                Notification.show("No tienes permisos para eliminar esta solicitud", 3000, Notification.Position.MIDDLE)
+                        .addThemeVariants(NotificationVariant.LUMO_ERROR);
                 throw new RuntimeException("No tienes permisos para eliminar esta solicitud");
             }
         } else {

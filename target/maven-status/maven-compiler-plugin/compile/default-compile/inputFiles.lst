@@ -1,14 +1,37 @@
-D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\configuration\SecurityConfiguration.java
-D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\controllers\AuthController.java
-D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\entities\EvaluacionEstrategica.java
-D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\entities\EvaluacionTecnica.java
-D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\entities\Proyecto.java
-D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\entities\Solicitud.java
-D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\entities\Usuario.java
-D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\IwApplication.java
-D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\repositories\EvaluacionEstrategicaRepository.java
-D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\repositories\EvaluacionTecnicaRepository.java
-D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\repositories\ProyectoRepository.java
-D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\repositories\SolicitudRepository.java
-D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\repositories\UsuarioRepository.java
-D:\Programas mierdas\IW\IW\src\main\java\com\iw\IW\services\UsuarioService.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\configuration\SecurityConfiguration.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\controllers\AuthController.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\controllers\EvaluacionEstrategicaController.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\controllers\EvaluacionTecnicaController.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\controllers\SolicitudController.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\controllers\UsuarioController.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\dto\PromotorResponse.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\entities\EvaluacionEstrategica.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\entities\EvaluacionTecnica.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\entities\Proyecto.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\entities\Solicitud.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\entities\Usuario.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\IwApplication.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\repositories\EvaluacionEstrategicaRepository.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\repositories\EvaluacionTecnicaRepository.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\repositories\ProyectoRepository.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\repositories\SolicitudRepository.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\repositories\UsuarioRepository.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\security\SolicitudSecurity.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\services\EmailService.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\services\EvaluacionEstrategicaService.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\services\EvaluacionTecnicaService.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\services\PromotorSyncService.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\services\SecurityService.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\services\SolicitudService.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\services\UsuarioService.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\views\AvalarView.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\views\EstrategicasView.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\views\EstrategicaView.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\views\LoginView.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\views\MainView.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\views\RegisterView.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\views\SolicitudesView.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\views\SolicitudView.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\views\TecnicasView.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\views\TecnicaView.java
+C:\Users\Diego\Desktop\tarea\4 cuarto\iw\repositorio\el bueno\iw2024-2025-CarteraProyectos\src\main\java\com\iw\IW\views\VerificationView.java
