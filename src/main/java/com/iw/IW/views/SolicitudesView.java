@@ -20,7 +20,7 @@ import java.util.List;
 
 @Route("avalar")
 @PageTitle("Avalar solicitudes")
-@RolesAllowed({"promotor"})
+@RolesAllowed({"PROMOTOR"})
 public class SolicitudesView extends VerticalLayout {
 
 
@@ -40,11 +40,14 @@ public class SolicitudesView extends VerticalLayout {
         HorizontalLayout solicitudes = new HorizontalLayout();
 
         for(Solicitud solicitud : aux){
-            Button boton = new Button(solicitud.getNombre());
-            boton.addClickListener(e -> {
-                getUI().ifPresent(ui -> ui.navigate("/avalar/" + solicitud.getId()));
-            });
-            solicitudes.add(boton);
+            if(solicitud.getEstado().equals("solicitado")){
+                Button boton = new Button(solicitud.getNombre());
+                boton.addClickListener(e -> {
+                    getUI().ifPresent(ui -> ui.navigate("/avalar/" + solicitud.getId()));
+                });
+                solicitudes.add(boton);
+            }
+
         }
 
         add(solicitudes);

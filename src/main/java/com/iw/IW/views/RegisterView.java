@@ -55,8 +55,7 @@ public class RegisterView extends VerticalLayout {
             if (success.getNombre().equals(username)) {
                 getUI().ifPresent(ui -> ui.navigate("/login"));
             } else {
-                Notification.show("Hubo un error al registrar el usuario", 3000, Notification.Position.MIDDLE)
-                        .addThemeVariants(NotificationVariant.LUMO_ERROR);
+                Notification.show("Hubo un error al registrar el usuario", 3000, Notification.Position.MIDDLE);
             }
         });
 

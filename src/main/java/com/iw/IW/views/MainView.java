@@ -7,6 +7,7 @@ import com.iw.IW.services.UsuarioService;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
 
 @Route("")
 @PageTitle("Menú principal")
-@RolesAllowed({"USER", "ADMIN", "normal", "promotor"})
+@RolesAllowed({"USER", "ADMIN", "normal", "PROMOTOR", "CIO", "OTP"})
 public class MainView extends VerticalLayout implements BeforeEnterObserver {
 
     @Autowired
@@ -52,12 +53,28 @@ public class MainView extends VerticalLayout implements BeforeEnterObserver {
                 .map(authority -> authority.getAuthority())
                 .collect(Collectors.toSet());
 
-        if(roles.contains("ROLE_promotor")){
+        if(roles.contains("ROLE_PROMOTOR")){
             Button avalar = new Button("Avalar", click -> {
                 getUI().ifPresent(ui -> ui.navigate("/avalar"));
             });
             add(avalar);
         }
+
+        if(roles.contains("ROLE_OTP")){
+            Button avalar = new Button("Evaluaciones técnicas", click -> {
+                getUI().ifPresent(ui -> ui.navigate("/evaluaciontecnica"));
+            });
+            add(avalar);
+        }
+
+        if(roles.contains("ROLE_CIO")){
+            Button avalar = new Button("Evaluaciones estratégicas", click -> {
+                getUI().ifPresent(ui -> ui.navigate("/evaluacionestrategica"));
+            });
+            add(avalar);
+        }
+
+        add(new Button("Click me", event -> Notification.show("Clicked!", 3000, Notification.Position.TOP_CENTER)));
 
     }
 

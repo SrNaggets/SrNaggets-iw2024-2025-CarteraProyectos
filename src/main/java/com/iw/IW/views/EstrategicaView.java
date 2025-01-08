@@ -1,13 +1,19 @@
 package com.iw.IW.views;
 
+import com.iw.IW.entities.EvaluacionEstrategica;
 import com.iw.IW.entities.EvaluacionTecnica;
 import com.iw.IW.entities.Solicitud;
+import com.iw.IW.repositories.EvaluacionEstrategicaRepository;
+import com.iw.IW.repositories.EvaluacionTecnicaRepository;
 import com.iw.IW.repositories.SolicitudRepository;
-import com.iw.IW.services.EvaluacionTecnicaService;
+import com.iw.IW.services.EvaluacionEstrategicaService;
 import com.iw.IW.services.SolicitudService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.html.Anchor;
+import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.H4;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
@@ -23,17 +29,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
-@Route("evaluaciontecnica")
-@PageTitle("Evaluación técnica de solicitud")
-@RolesAllowed({"OTP"})
-public class TecnicaView extends VerticalLayout implements HasUrlParameter<Long> {
+@Route("evaluacionestrategica")
+@PageTitle("Evaluación estratégica de solicitud")
+@RolesAllowed({"CIO"})
+public class EstrategicaView extends VerticalLayout implements HasUrlParameter<Long> {
 
 
     @Autowired
     SolicitudRepository solicitudRepository;
 
     @Autowired
-    EvaluacionTecnicaService evaluacionTecnicaService;
+    SolicitudService solicitudService;
+
+    @Autowired
+    EvaluacionTecnicaRepository evaluacionTecnicaRepository;
+
+    @Autowired
+    EvaluacionEstrategicaService evaluacionEstrategicaService;
 
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
@@ -42,7 +54,7 @@ public class TecnicaView extends VerticalLayout implements HasUrlParameter<Long>
 
             Button volver = new Button("Volver a solicitudes");
             volver.addClickListener(e -> {
-                getUI().ifPresent(ui -> ui.navigate("/evaluaciontecnica/"));
+                getUI().ifPresent(ui -> ui.navigate("/evaluacionestrategica/"));
             });
             add(volver);
 
@@ -96,45 +108,46 @@ public class TecnicaView extends VerticalLayout implements HasUrlParameter<Long>
 
             Anchor enlacePresupuestos = new Anchor(presupuestosArchivo, "Presupuestos");
 
+            EvaluacionTecnica evTecnica = evaluacionTecnicaRepository.findBySolicitudId(solicitud.getId()).get(0);
+
             add(
                     enlaceMemoria,
                     enlaceTecnico,
                     enlacePresupuestos);
 
+            add(
+            new H4("Idoneidad técnica: " + evTecnica.getAlineamiento()),
 
-            TextField Alineamiento = new TextField("Idoneidad técnica:");
-            Alineamiento.addClassName("bordered");
-            Alineamiento.setPlaceholder("");
-            Alineamiento.setWidth("70%");
+            new H4("Recursos humanos necesarios: " + evTecnica.getRecursosH()),
 
-            TextField RecursosH = new TextField("Recursos humanos necesarios:");
-            RecursosH.addClassName("bordered");
-            RecursosH.setPlaceholder("");
-            RecursosH.setWidth("70%");
+            new H4("Recursos económicos necesarios: " + evTecnica.getRecursosF() + "€"));
 
-            NumberField RecursosF = new NumberField("Recursos económicos necesarios:");
-            Div sufijoEuro = new Div();
-            sufijoEuro.setText("€");
-            RecursosF.setSuffixComponent(sufijoEuro);
-            RecursosF.addClassName("bordered");
-            RecursosF.setPlaceholder("");
-            RecursosF.setWidth("30%");
+            TextField descripcion = new TextField("Evaluación estratégica: ");
+            descripcion.addClassName("bordered");
+            descripcion.setPlaceholder("");
+            descripcion.setWidth("70%");
 
+            Button enviar = new Button("Enviar evaluación estratégica", e -> {
 
-            Button enviar = new Button("Enviar evaluación técnica", e -> {
+                EvaluacionEstrategica evaluacionEstrategica = new EvaluacionEstrategica();
+                evaluacionEstrategica.setAlineamiento(descripcion.getValue());
+                evaluacionEstrategica.setId(solicitud.getId());
 
-                EvaluacionTecnica evaluacionTecnica = new EvaluacionTecnica();
-                evaluacionTecnica.setId(solicitud.getId());
-                evaluacionTecnica.setAlineamiento(Alineamiento.getValue());
-                evaluacionTecnica.setRecursosF(RecursosF.getValue().longValue());
-                evaluacionTecnica.setRecursosH(RecursosH.getValue());
+                evaluacionEstrategicaService.registrarEvaluacionEstrategica(solicitud.getId(), evaluacionEstrategica);
 
-                evaluacionTecnicaService.registrarEvaluacionTecnica(solicitud.getId(), evaluacionTecnica);
-
-                getUI().ifPresent(ui -> ui.navigate("/evaluaciontecnica/"));
+                getUI().ifPresent(ui -> ui.navigate("/evaluacionestrategica/"));
             });
 
-            add(Alineamiento, RecursosH, RecursosF, enviar);
+            Button cancelar = new Button("Cancelar solicitud", e -> {
+
+                solicitudService.cambiarEstado(solicitud.getId(), "cancelado", null);
+
+                getUI().ifPresent(ui -> ui.navigate("/evaluacionestrategica/"));
+            });
+
+            cancelar.addThemeVariants(ButtonVariant.LUMO_ERROR);
+
+            add(descripcion, new HorizontalLayout(enviar, cancelar));
 
 
         } else {
@@ -142,4 +155,5 @@ public class TecnicaView extends VerticalLayout implements HasUrlParameter<Long>
         }
 
     }
+
 }

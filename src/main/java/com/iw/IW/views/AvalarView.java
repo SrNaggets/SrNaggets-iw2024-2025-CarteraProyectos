@@ -19,7 +19,7 @@ import java.util.List;
 
 @Route("avalar")
 @PageTitle("Avalar solicitud")
-@RolesAllowed({"promotor"})
+@RolesAllowed({"PROMOTOR"})
 public class AvalarView extends VerticalLayout implements HasUrlParameter<Long> {
 
     @Autowired
@@ -91,7 +91,7 @@ public class AvalarView extends VerticalLayout implements HasUrlParameter<Long> 
                     enlacePresupuestos);
 
             Button aprobar = new Button("Aprobar");
-            aprobar.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_SUCCESS);
+            aprobar.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
 
             aprobar.addClickListener(aprobado -> {
                 solicitudService.cambiarEstado(solicitud.getId(), "pendiente de evaluación técnica", null);
@@ -99,10 +99,11 @@ public class AvalarView extends VerticalLayout implements HasUrlParameter<Long> 
             });
 
             Button rechazar = new Button("Rechazar");
-            rechazar.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
+            rechazar.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
             rechazar.addClickListener(rechazado -> {
-                solicitudService.eliminarSolicitud(solicitud.getId(), solicitud.getUsuario());
+                solicitudService.cambiarEstado(solicitud.getId(), "rechazado", null);
+                getUI().ifPresent(ui -> ui.navigate("/avalar/"));
             });
 
             add(new HorizontalLayout(aprobar, rechazar));
