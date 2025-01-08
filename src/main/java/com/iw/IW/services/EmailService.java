@@ -70,4 +70,14 @@ public class EmailService {
         mailSender.send(mensaje);
     }
 
+    public void enviarCorreoRecuperacionContraseña(String destinatario, String nuevaContraseña) {
+        SimpleMailMessage mensaje = new SimpleMailMessage();
+        mensaje.setTo(destinatario);
+        mensaje.setSubject("Recuperación de Contraseña");
+        mensaje.setText("Hola,\n\nTu contraseña ha sido reiniciada. Tu nueva contraseña es: " + nuevaContraseña +
+                "\n\nPor favor, cámbiala después de iniciar sesión.\n\nGracias.");
+        mailSender.send(mensaje);
+    }
+
+
 }

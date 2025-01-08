@@ -27,7 +27,14 @@ public class UsuarioService {
     private static final int EXPIRACION_HORAS = 1;
 
     public Usuario registrarUsuario(String correo, String nombre, String contraseña) {
-                Optional<Usuario> usuarioExistente = usuarioRepository.findByCorreo(correo);
+        Optional<Usuario> usuarioExistente2 = usuarioRepository.findOptionalByNombre(nombre);
+        if (usuarioExistente2.isPresent()) {
+            Notification.show("Ese nombre de usuario ya está registrado", 3000, Notification.Position.MIDDLE)
+                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
+            throw new RuntimeException("Ese nombre de usuario ya está registrado");
+        }
+
+        Optional<Usuario> usuarioExistente = usuarioRepository.findByCorreo(correo);
         if (usuarioExistente.isPresent()) {
             Notification.show("El correo ya está registrado", 3000, Notification.Position.MIDDLE)
                     .addThemeVariants(NotificationVariant.LUMO_ERROR);
@@ -85,6 +92,39 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
     }
 
+  public void reiniciarContraseña(String correo) {
+        Usuario usuario = usuarioRepository.findByCorreo(correo)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        String nuevaContraseña = generarCodigoAleatorio();
+        usuario.setContraseña(passwordEncoder.encode(nuevaContraseña));
+
+        usuarioRepository.save(usuario);
+
+        emailService.enviarCorreoRecuperacionContraseña(correo, nuevaContraseña);
+    }
+
+    public Usuario modificarUsuario(Long id, String nuevoNombre, String nuevaContraseña) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        if (nuevoNombre != null && !nuevoNombre.isEmpty()) {
+            usuario.setNombre(nuevoNombre);
+        }
+
+        if (nuevaContraseña != null && !nuevaContraseña.isEmpty()) {
+            usuario.setContraseña(passwordEncoder.encode(nuevaContraseña));
+        }
+
+        return usuarioRepository.save(usuario);
+    }
+
+    private String generarCodigoAleatorio() {
+        Random random = new Random();
+        int codigo = 100000 + random.nextInt(900000);
+        return String.valueOf(codigo);
+    }
+
     public Usuario autenticarUsuario(String correo, String contraseña) {
         Usuario usuario = usuarioRepository.findByCorreo(correo)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -125,3 +165,4 @@ public class UsuarioService {
         return String.valueOf(codigo);
     }
 }
+
