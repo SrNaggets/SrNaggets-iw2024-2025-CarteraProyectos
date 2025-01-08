@@ -14,7 +14,6 @@ public class EmailService {
 
     public void enviarCorreoVerificacion(String destinatario, String codigo) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
-        mensaje.setFrom("carteradeproyectosiw@gmail.com");
         mensaje.setTo(destinatario);
         mensaje.setSubject("Código de Verificación");
         mensaje.setText("Tu código de verificación es: " + codigo);
@@ -24,7 +23,6 @@ public class EmailService {
 
     public void enviarCorreoCambioEstado(String destinatario, String tituloSolicitud, String nuevoEstado, String mensajeAdicional) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
-         mensaje.setFrom("carteradeproyectosiw@gmail.com");
         mensaje.setTo(destinatario);
         mensaje.setSubject("Actualización del Estado de tu Solicitud");
         mensaje.setText("Hola,\n\nEl estado de tu solicitud '" + tituloSolicitud + "' ha cambiado a: " + nuevoEstado +
@@ -35,7 +33,6 @@ public class EmailService {
 
     public void enviarCorreoEvaluacionTecnica(String destinatario, String tituloSolicitud, String descripcion, String recursosH, Long recursosF, String alineamiento) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
-        mensaje.setFrom("carteradeproyectosiw@gmail.com");
         mensaje.setTo(destinatario);
         mensaje.setSubject("Evaluación Técnica Registrada");
         mensaje.setText("Hola,\n\nSe ha registrado una nueva evaluación técnica para tu solicitud: '" + tituloSolicitud + "'." +
@@ -50,7 +47,6 @@ public class EmailService {
 
     public void enviarCorreoEvaluacionEstrategica(String destinatario, String tituloSolicitud, String descripcion, String alineamiento) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
-        mensaje.setFrom("carteradeproyectosiw@gmail.com");
         mensaje.setTo(destinatario);
         mensaje.setSubject("Evaluación Estratégica Registrada");
         mensaje.setText("Hola,\n\nSe ha registrado una nueva evaluación estratégica para tu solicitud: '" + tituloSolicitud + "'." +
@@ -61,7 +57,6 @@ public class EmailService {
     }
     public void enviarCorreoNotificacionPromotor(String destinatario, String tituloSolicitud) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
-        mensaje.setFrom("carteradeproyectosiw@gmail.com");
         mensaje.setTo(destinatario);
         mensaje.setSubject("Nueva Solicitud Asignada para Evaluación");
         mensaje.setText("Hola,\n\nHas sido asignado como promotor para la solicitud: '" + tituloSolicitud + "'." +
@@ -76,6 +71,14 @@ public class EmailService {
         mensaje.setSubject("Recuperación de Contraseña");
         mensaje.setText("Hola,\n\nTu contraseña ha sido reiniciada. Tu nueva contraseña es: " + nuevaContraseña +
                 "\n\nPor favor, cámbiala después de iniciar sesión.\n\nGracias.");
+        mailSender.send(mensaje);
+    }
+
+    public void enviarCorreoCambioRol(String destinatario, String nuevoRol) {
+        SimpleMailMessage mensaje = new SimpleMailMessage();
+        mensaje.setTo(destinatario);
+        mensaje.setSubject("Cambio de Rol en el Sistema");
+        mensaje.setText("Hola,\n\nTu rol en el sistema ha sido cambiado a: " + nuevoRol + ".\n\nGracias.");
         mailSender.send(mensaje);
     }
 
