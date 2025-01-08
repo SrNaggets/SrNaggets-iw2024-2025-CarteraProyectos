@@ -19,6 +19,7 @@ com\iw\IW\repositories\EvaluacionEstrategicaRepository.class
 com\iw\IW\configuration\SecurityConfiguration.class
 com\iw\IW\views\ProyectoCIOView.class
 com\iw\IW\controllers\EvaluacionTecnicaController.class
+com\iw\IW\views\VerCarteraProyectosView.class
 com\iw\IW\entities\Solicitud.class
 com\iw\IW\security\SolicitudSecurity.class
 com\iw\IW\views\OlvidaContraseñaView.class
@@ -38,4 +39,5 @@ com\iw\IW\views\AvalarView.class
 com\iw\IW\controllers\UsuarioController.class
 com\iw\IW\views\SolicitudesView.class
 com\iw\IW\views\SolicitudView.class
+com\iw\IW\views\verSolicitudesUsuarioView.class
 com\iw\IW\services\EvaluacionTecnicaService.class
