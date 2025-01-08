@@ -46,6 +46,9 @@ jobs:
       - name: Inspect downloaded files
         run: ls -R
 
+      - name: Verify JAR file exists
+        run: ls spring-skeleton-1.0-SNAPSHOT.jar
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -57,7 +60,8 @@ jobs:
         with:
           app-name: 'WebCarteraProyectos'
           slot-name: 'Production'
-          package: 'target/spring-skeleton-1.0-SNAPSHOT.jar'
+          package: 'spring-skeleton-1.0-SNAPSHOT.jar'
+
 
 
 
