@@ -34,7 +34,7 @@ public class VerificationView extends VerticalLayout {
         setAlignItems(Alignment.CENTER);
 
         if (securityService.getAuthenticatedUser() != null) {
-            String correo = usuarioRepository.findByNombre(securityService.getAuthenticatedUser().getUsername()).getCorreo();
+            String correo = securityService.getAuthenticatedUser().getUsername();
 
             TextField campoCodigo = new TextField("Código de verificación: ");
 
