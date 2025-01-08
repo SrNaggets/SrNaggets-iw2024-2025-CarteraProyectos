@@ -14,6 +14,7 @@ public class EmailService {
 
     public void enviarCorreoVerificacion(String destinatario, String codigo) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
+        mensaje.setFrom("carteradeproyectosiw@gmail.com");
         mensaje.setTo(destinatario);
         mensaje.setSubject("Código de Verificación");
         mensaje.setText("Tu código de verificación es: " + codigo);
