@@ -23,8 +23,7 @@ jobs:
         run: mvn clean install -DskipTests
 
       - name: Rename JAR file to app.jar
-        run: |
-          mv ${{ github.workspace }}/target/*.jar ${{ github.workspace }}/target/app.jar
+        run: mv ${{ github.workspace }}/target/*.jar ${{ github.workspace }}/target/app.jar
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -47,8 +46,11 @@ jobs:
         with:
           name: java-app
 
-      - name: Move JAR file to root directory
-        run: mv java-app/app.jar ./app.jar
+      - name: Verify JAR file exists
+        run: ls -l
+
+      - name: Rename downloaded JAR to app.jar
+        run: mv *.jar app.jar
       
       - name: Login to Azure
         uses: azure/login@v2
