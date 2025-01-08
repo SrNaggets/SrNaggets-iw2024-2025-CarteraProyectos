@@ -22,14 +22,11 @@ jobs:
       - name: Build with Maven (skip tests)
         run: mvn clean install -DskipTests
 
-      - name: Rename JAR file to app.jar
-        run: mv ${{ github.workspace }}/target/*.jar ${{ github.workspace }}/target/app.jar
-
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/app.jar'
+          path: '${{ github.workspace }}/target/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
@@ -60,5 +57,6 @@ jobs:
         with:
           app-name: 'WebCarteraProyectos'
           slot-name: 'Production'
-          package: './app.jar'
+          package: '*.jar'
+
 
