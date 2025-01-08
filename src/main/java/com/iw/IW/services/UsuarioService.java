@@ -88,6 +88,42 @@ public class UsuarioService {
 
         return usuario;
     }
+    public void reiniciarContraseña(String correo) {
+        Usuario usuario = usuarioRepository.findByCorreo(correo)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        String nuevaContraseña = generarCodigoAleatorio();
+        usuario.setContraseña(passwordEncoder.encode(nuevaContraseña));
+
+        usuarioRepository.save(usuario);
+
+        emailService.enviarCorreoRecuperacionContraseña(correo, nuevaContraseña);
+    }
+
+    public Usuario modificarUsuario(Long id, String nuevoNombre, String nuevaContraseña) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        if (nuevoNombre != null && !nuevoNombre.isEmpty()) {
+            usuario.setNombre(nuevoNombre);
+        }
+
+        if (nuevaContraseña != null && !nuevaContraseña.isEmpty()) {
+            usuario.setContraseña(passwordEncoder.encode(nuevaContraseña));
+        }
+
+        return usuarioRepository.save(usuario);
+    }
+
+    private String generarCodigoAleatorio() {
+        Random random = new Random();
+        int codigo = 100000 + random.nextInt(900000);
+        return String.valueOf(codigo);
+    }
+
+
+
+
 
     public List<Usuario> buscarPromotoresPorNombre(String nombre) {
         return usuarioRepository.findByRoleAndNombreContainingIgnoreCase("PROMOTOR", nombre);
