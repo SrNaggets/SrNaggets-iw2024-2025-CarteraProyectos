@@ -27,6 +27,13 @@ public class UsuarioService {
     private static final int EXPIRACION_HORAS = 1;
 
     public Usuario registrarUsuario(String correo, String nombre, String contraseña) {
+        Optional<Usuario> usuarioExistente2 = usuarioRepository.findByNombreOptional(correo);
+        if (usuarioExistente2.isPresent()) {
+            Notification.show("Ese nombre de usuario ya está registrado", 3000, Notification.Position.MIDDLE)
+                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
+            throw new RuntimeException("Ese nombre de usuario ya está registrado");
+        }
+
         Optional<Usuario> usuarioExistente = usuarioRepository.findByCorreo(correo);
         if (usuarioExistente.isPresent()) {
             Notification.show("El correo ya está registrado", 3000, Notification.Position.MIDDLE)

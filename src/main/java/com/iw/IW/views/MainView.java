@@ -74,7 +74,6 @@ public class MainView extends VerticalLayout implements BeforeEnterObserver {
             add(avalar);
         }
 
-        add(new Button("Click me", event -> Notification.show("Clicked!", 3000, Notification.Position.TOP_CENTER)));
 
     }
 
