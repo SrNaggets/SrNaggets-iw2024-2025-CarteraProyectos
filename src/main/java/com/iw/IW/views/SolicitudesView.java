@@ -29,8 +29,8 @@ public class SolicitudesView extends VerticalLayout {
     public SolicitudesView(@Autowired SecurityService securityService, @Autowired SolicitudRepository solicitudRepository,
                            @Autowired UsuarioRepository usuarioRepository){
 
-        setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
-        setAlignItems(FlexComponent.Alignment.AUTO);
+        setJustifyContentMode(JustifyContentMode.CENTER);
+        setAlignItems(Alignment.AUTO);
 
         Button logout = new Button("Logout", click -> securityService.logout());
 
@@ -39,15 +39,17 @@ public class SolicitudesView extends VerticalLayout {
         add(new HorizontalLayout(logout, principal));
 
         List<Solicitud> aux = solicitudRepository.findByPromotorId(usuarioRepository.findByCorreo(securityService.getAuthenticatedUser().getUsername()).get().getId());
+        List<Solicitud> aux2 = new java.util.ArrayList<>(List.of());
+
         for(Solicitud solAux : aux){
             if(!solAux.getEstado().equals("solicitado")){
-                aux.remove(solAux);
+                aux2.add(solAux);
             }
         }
 
         add(new H2("Solicitudes pendientes de evaluar:"));
 
-        if(aux.isEmpty()){
+        if(aux2.isEmpty()){
             add(new H4("No quedan solicitudes pendientes de avalación."));
         }
         else{
@@ -59,7 +61,7 @@ public class SolicitudesView extends VerticalLayout {
             gridSolicitudes.addColumn(Solicitud::getInteresados).setHeader("Interesados");
             gridSolicitudes.addColumn(Solicitud::getImportanciaPromotor).setHeader("Importancia para el promotor");
 
-            gridSolicitudes.setItems(aux);
+            gridSolicitudes.setItems(aux2);
 
         /*
         for(Solicitud solicitud : aux){

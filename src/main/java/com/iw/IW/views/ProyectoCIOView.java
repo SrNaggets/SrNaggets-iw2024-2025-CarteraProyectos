@@ -127,12 +127,12 @@ public class ProyectoCIOView extends VerticalLayout implements HasUrlParameter<L
 
 
 
-            Button cancelar = new Button("Enviar evaluación estratégica", e -> {
+            Button cancelar = new Button("Cancelar proyecto", e -> {
 
 
                 solicitudService.cambiarEstado(solicitud.getId(), "cancelado", null);
 
-                getUI().ifPresent(ui -> ui.navigate("/evaluacionestrategica/"));
+                getUI().ifPresent(ui -> ui.navigate("/proyectos/"));
             });
 
 
