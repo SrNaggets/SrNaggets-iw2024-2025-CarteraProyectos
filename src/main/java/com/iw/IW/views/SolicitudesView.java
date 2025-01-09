@@ -39,6 +39,11 @@ public class SolicitudesView extends VerticalLayout {
         add(new HorizontalLayout(logout, principal));
 
         List<Solicitud> aux = solicitudRepository.findByPromotorId(usuarioRepository.findByCorreo(securityService.getAuthenticatedUser().getUsername()).get().getId());
+        for(Solicitud solAux : aux){
+            if(!solAux.getEstado().equals("solicitado")){
+                aux.remove(solAux);
+            }
+        }
 
         add(new H2("Solicitudes pendientes de evaluar:"));
 
