@@ -1,14 +1,17 @@
 com\iw\IW\views\LoginView.class
 com\iw\IW\dto\PromotorResponse.class
+com\iw\IW\views\CambiarRolesView.class
 com\iw\IW\IwApplication.class
 com\iw\IW\repositories\EvaluacionTecnicaRepository.class
 com\iw\IW\services\EvaluacionEstrategicaService.class
 com\iw\IW\views\TecnicasView.class
 com\iw\IW\views\MainView.class
 com\iw\IW\repositories\UsuarioRepository.class
+com\iw\IW\views\CancelarFinalizarProyectosView.class
 com\iw\IW\services\PromotorSyncService.class
 com\iw\IW\controllers\EvaluacionEstrategicaController.class
 com\iw\IW\controllers\SolicitudController.class
+com\iw\IW\views\CancelarFinalizarProyectoView.class
 com\iw\IW\services\SolicitudService.class
 com\iw\IW\repositories\EvaluacionEstrategicaRepository.class
 com\iw\IW\configuration\SecurityConfiguration.class
@@ -32,6 +35,7 @@ com\iw\IW\dto\PromotorResponse$PromotorData.class
 com\iw\IW\controllers\AuthController.class
 com\iw\IW\entities\EvaluacionEstrategica.class
 com\iw\IW\views\CIOPriorizarView.class
+com\iw\IW\views\CambiarRolesUsuarioView.class
 com\iw\IW\views\VerCarteraProyectosView.class
 com\iw\IW\entities\Solicitud.class
 com\iw\IW\security\SolicitudSecurity.class
