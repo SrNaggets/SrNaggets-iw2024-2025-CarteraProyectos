@@ -255,7 +255,7 @@ public class SolicitudView extends VerticalLayout {
 
                     titulo.getValue(), nombreCorto.getValue(), interesados.getValue(), financiacion.getValue().longValue(), alis[0], alis[1], alis[2],
                     alis[3], alis[4], alis[5], alis[6], alcance.getValue(), importanciaProm.getValue().intValue(),
-                    usuarioRepository.findByNombre(securityService.getAuthenticatedUser().getUsername()),
+                    usuarioRepository.findByCorreo(securityService.getAuthenticatedUser().getUsername()).get(),
                     this.memoriaBytes, this.tecnicoBytes, this.presupuestoBytes, 2);
 
             sol = solicitudService.asignarPromotor(sol.getId(), usuarioRepository.findByNombre(promotor.getValue()).getId());
