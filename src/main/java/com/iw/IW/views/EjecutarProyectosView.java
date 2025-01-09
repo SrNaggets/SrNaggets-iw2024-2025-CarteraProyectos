@@ -1,6 +1,7 @@
 package com.iw.IW.views;
 
 import com.iw.IW.entities.Solicitud;
+import com.iw.IW.repositories.SolicitudRepository;
 import com.iw.IW.services.SecurityService;
 import com.iw.IW.services.SolicitudService;
 import com.vaadin.flow.component.button.Button;
@@ -19,12 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-@Route("evaluacionestrategica")
-@PageTitle("Evaluación estratégica de solicitudes")
+@Route("ejecutar")
+@PageTitle("Ejecutar proyectos")
 @RolesAllowed({"CIO"})
-public class EstrategicasView extends VerticalLayout {
+public class EjecutarProyectosView extends VerticalLayout {
 
-    public EstrategicasView(@Autowired SecurityService securityService, @Autowired SolicitudService solicitudService){
+    public EjecutarProyectosView(@Autowired SecurityService securityService, @Autowired SolicitudService solicitudService, @Autowired SolicitudRepository solicitudRepository){
         setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         setAlignItems(FlexComponent.Alignment.AUTO);
 
@@ -33,21 +34,21 @@ public class EstrategicasView extends VerticalLayout {
 
         add(new HorizontalLayout(logout, principal));
 
-        List<Solicitud> aux = solicitudService.obtenerPorEstado("pendiente de evaluación estratégica");
+        List<Solicitud> aux = solicitudRepository.findAllByOrderByPrioridadDesc();
 
-        add(new H2("Solicitudes pendientes de evaluación estratégica:"));
+        add(new H2("Proyectos a ejecutar:"));
 
         if(aux.isEmpty()){
-            add(new H4("No quedan solicitudes pendientes de evaluación."));
+            add(new H4("No hay proyectos."));
         }
         else{
 
 
             Grid<Solicitud> gridSolicitudes = new Grid<>(Solicitud.class, false);
-            gridSolicitudes.addColumn(new ComponentRenderer<>(p -> new Anchor("/evaluaciontecnica/" + p.getId(), p.getTitulo()))).setHeader("Título");
+            gridSolicitudes.addColumn(new ComponentRenderer<>(p -> new Anchor("/ejecutar/" + p.getId(), p.getTitulo()))).setHeader("Título");
 
-            gridSolicitudes.addColumn(Solicitud::getInteresados).setHeader("Interesados");
-            gridSolicitudes.addColumn(Solicitud::getImportanciaPromotor).setHeader("Importancia para el promotor");
+            gridSolicitudes.addColumn(Solicitud::getEstado).setHeader("Estado");
+            gridSolicitudes.addColumn(Solicitud::getPrioridad).setHeader("Prioridad");
 
             gridSolicitudes.setItems(aux);
 

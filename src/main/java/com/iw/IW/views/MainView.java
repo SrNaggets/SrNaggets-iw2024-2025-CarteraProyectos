@@ -77,6 +77,16 @@ public class MainView extends VerticalLayout implements BeforeEnterObserver {
                 getUI().ifPresent(ui -> ui.navigate("/proyectos"));
             });
             add(proyectos);
+
+            Button priorizar = new Button("Priorizar proyectos", click -> {
+                getUI().ifPresent(ui -> ui.navigate("/priorizar"));
+            });
+            add(priorizar);
+
+            Button ejecutar = new Button("Ejecutar proyectos", click -> {
+                getUI().ifPresent(ui -> ui.navigate("/ejecutar"));
+            });
+            add(ejecutar);
         }
 
         add(new Button("Ver cartera de proyectos", e -> {
