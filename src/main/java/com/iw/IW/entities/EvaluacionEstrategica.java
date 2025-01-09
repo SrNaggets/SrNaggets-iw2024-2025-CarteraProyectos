@@ -12,11 +12,11 @@ public class EvaluacionEstrategica {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "idS", nullable = false, insertable = false, updatable = false)
+    @Column(name = "idS", nullable = false)
     private Long idS;
 
     @OneToOne
-    @JoinColumn(name = "idS", referencedColumnName = "id")
+    @JoinColumn(name = "idS", referencedColumnName = "id", insertable = false, updatable = false)
     private Solicitud solicitud;
 
     @Column(nullable = false, length = 255)
