@@ -2,6 +2,7 @@ com\iw\IW\entities\Usuario.class
 com\iw\IW\services\UsuarioService.class
 com\iw\IW\views\LoginView.class
 com\iw\IW\dto\PromotorResponse.class
+com\iw\IW\views\VerSolicitudesUsuarioView.class
 com\iw\IW\IwApplication.class
 com\iw\IW\repositories\EvaluacionTecnicaRepository.class
 com\iw\IW\dto\PromotorResponse$PromotorData.class
@@ -39,5 +40,4 @@ com\iw\IW\views\AvalarView.class
 com\iw\IW\controllers\UsuarioController.class
 com\iw\IW\views\SolicitudesView.class
 com\iw\IW\views\SolicitudView.class
-com\iw\IW\views\verSolicitudesUsuarioView.class
 com\iw\IW\services\EvaluacionTecnicaService.class

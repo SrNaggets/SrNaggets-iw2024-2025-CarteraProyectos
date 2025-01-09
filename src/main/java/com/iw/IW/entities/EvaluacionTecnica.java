@@ -16,7 +16,7 @@ public class EvaluacionTecnica {
     private Long idS;
 
     @OneToOne
-    @JoinColumn(name = "idS", referencedColumnName = "id")
+    @JoinColumn(name = "idS", insertable = false, updatable = false, referencedColumnName = "id")
     private Solicitud solicitud;
 
     @Column(nullable = false, length = 255)
