@@ -12,7 +12,7 @@ public class EvaluacionEstrategica {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "idS", nullable = false)
+    @Column(name = "idS", nullable = false, insertable = false, updatable = false)
     private Long idS;
 
     @OneToOne
