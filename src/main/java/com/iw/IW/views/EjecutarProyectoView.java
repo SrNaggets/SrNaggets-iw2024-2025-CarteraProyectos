@@ -78,7 +78,7 @@ public class EjecutarProyectoView extends VerticalLayout implements HasUrlParame
 
                 solicitudService.actualizarSolicitud(solicitud.getId(), solicitud);
 
-                getUI().ifPresent(ui -> ui.navigate("/priorizar/"));
+                getUI().ifPresent(ui -> ui.navigate("/ejecutar/"));
             });
 
             add(enviar, new HorizontalLayout(enviar));

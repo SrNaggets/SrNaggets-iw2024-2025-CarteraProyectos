@@ -44,7 +44,7 @@ public class EstrategicasView extends VerticalLayout {
 
 
             Grid<Solicitud> gridSolicitudes = new Grid<>(Solicitud.class, false);
-            gridSolicitudes.addColumn(new ComponentRenderer<>(p -> new Anchor("/evaluaciontecnica/" + p.getId(), p.getTitulo()))).setHeader("Título");
+            gridSolicitudes.addColumn(new ComponentRenderer<>(p -> new Anchor("/evaluacionestrategica/" + p.getId(), p.getTitulo()))).setHeader("Título");
 
             gridSolicitudes.addColumn(Solicitud::getInteresados).setHeader("Interesados");
             gridSolicitudes.addColumn(Solicitud::getImportanciaPromotor).setHeader("Importancia para el promotor");

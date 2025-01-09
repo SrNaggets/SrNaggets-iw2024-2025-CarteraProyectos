@@ -80,6 +80,7 @@ public class CIOPriorizarProyectoView extends VerticalLayout implements HasUrlPa
             Button enviar = new Button("Priorizar proyecto", e -> {
 
                 solicitud.setPrioridad(prioridad.getValue().intValue());
+                solicitud.setEstado("priorizado");
 
                 solicitudService.actualizarSolicitud(solicitud.getId(), solicitud);
 
