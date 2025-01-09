@@ -3,19 +3,22 @@ package com.iw.IW.views;
 import com.iw.IW.entities.EvaluacionEstrategica;
 import com.iw.IW.entities.EvaluacionTecnica;
 import com.iw.IW.entities.Solicitud;
+import com.iw.IW.entities.Usuario;
 import com.iw.IW.repositories.EvaluacionEstrategicaRepository;
 import com.iw.IW.repositories.EvaluacionTecnicaRepository;
 import com.iw.IW.repositories.SolicitudRepository;
+import com.iw.IW.repositories.UsuarioRepository;
 import com.iw.IW.services.EvaluacionEstrategicaService;
+import com.iw.IW.services.SecurityService;
 import com.iw.IW.services.SolicitudService;
+import com.iw.IW.services.UsuarioService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.html.Anchor;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.H4;
-import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
+import com.vaadin.flow.component.radiobutton.RadioGroupVariant;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.BeforeEvent;
@@ -29,14 +32,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
-@Route("ejecutar")
-@PageTitle("Ejecutar proyecto")
+@Route("roles")
+@PageTitle("Finalizar proyecto")
 @RolesAllowed({"CIO"})
-public class EjecutarProyectoView extends VerticalLayout implements HasUrlParameter<Long> {
+public class CambiarRolesUsuarioView extends VerticalLayout implements HasUrlParameter<Long> {
 
 
     @Autowired
-    SolicitudRepository solicitudRepository;
+    UsuarioRepository usuarioRepository;
 
     @Autowired
     SolicitudService solicitudService;
@@ -45,43 +48,47 @@ public class EjecutarProyectoView extends VerticalLayout implements HasUrlParame
     EvaluacionTecnicaRepository evaluacionTecnicaRepository;
 
     @Autowired
-    EvaluacionEstrategicaService evaluacionEstrategicaService;
+    UsuarioService usuarioService;
+
+    @Autowired
+    SecurityService securityService;
+
 
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
-        if (solicitudRepository.findById(parameter).isPresent()) {
-            Solicitud solicitud = solicitudRepository.findById(parameter).get();
+        if (usuarioRepository.findById(parameter).isPresent()) {
+            Usuario usuario = usuarioRepository.findById(parameter).get();
 
-            Button volver = new Button("Volver a solicitudes");
+            Button volver = new Button("Volver a usuarios");
             volver.addClickListener(e -> {
-                getUI().ifPresent(ui -> ui.navigate("/ejecutar/"));
+                getUI().ifPresent(ui -> ui.navigate("/roles/"));
             });
             add(volver);
 
-            add(solicitudService.mostrarSolicitud(solicitud));
+            add(new H2("Rol de " + usuario.getNombre() + ":"));
 
-            EvaluacionTecnica evTecnica = evaluacionTecnicaRepository.findBySolicitudId(solicitud.getId()).get(0);
+            RadioButtonGroup<String> roles = new RadioButtonGroup<>();
 
+            roles.addThemeVariants(RadioGroupVariant.LUMO_VERTICAL);
+            roles.setLabel("Roles para elegir: ");
+            roles.setItems("normal", "OTP", "PROMOTOR");
 
-            add(
-                    new H4("Idoneidad técnica: " + evTecnica.getAlineamiento()),
-
-                    new H4("Recursos humanos necesarios: " + evTecnica.getRecursosH()),
-
-                    new H4("Recursos económicos necesarios: " + evTecnica.getRecursosF() + "€"));
+            add(roles);
 
 
+            Button enviar = new Button("Cambiar roles", e -> {
 
-            Button enviar = new Button("Poner en marcha proyecto", e -> {
 
-                solicitud.setEstado("en ejecución");
+                usuarioService.cambiarRolUsuario(usuario.getCorreo(), roles.getValue(), usuarioRepository.findByCorreo(securityService.getAuthenticatedUser().getUsername()).get().getId());
 
-                solicitudService.actualizarSolicitud(solicitud.getId(), solicitud);
-
-                getUI().ifPresent(ui -> ui.navigate("/priorizar/"));
+                getUI().ifPresent(ui -> ui.navigate("/roles/"));
             });
 
-            add(enviar, new HorizontalLayout(enviar));
+
+
+
+
+            add(enviar);
 
 
         } else {

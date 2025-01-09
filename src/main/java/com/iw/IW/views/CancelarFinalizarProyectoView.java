@@ -29,10 +29,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
-@Route("ejecutar")
-@PageTitle("Ejecutar proyecto")
+@Route("finalizar")
+@PageTitle("Finalizar proyecto")
 @RolesAllowed({"CIO"})
-public class EjecutarProyectoView extends VerticalLayout implements HasUrlParameter<Long> {
+public class CancelarFinalizarProyectoView extends VerticalLayout implements HasUrlParameter<Long> {
 
 
     @Autowired
@@ -54,7 +54,7 @@ public class EjecutarProyectoView extends VerticalLayout implements HasUrlParame
 
             Button volver = new Button("Volver a solicitudes");
             volver.addClickListener(e -> {
-                getUI().ifPresent(ui -> ui.navigate("/ejecutar/"));
+                getUI().ifPresent(ui -> ui.navigate("/finalizar/"));
             });
             add(volver);
 
@@ -71,17 +71,27 @@ public class EjecutarProyectoView extends VerticalLayout implements HasUrlParame
                     new H4("Recursos económicos necesarios: " + evTecnica.getRecursosF() + "€"));
 
 
+            Button finalizar = new Button("Finalizar proyecto", e -> {
 
-            Button enviar = new Button("Poner en marcha proyecto", e -> {
-
-                solicitud.setEstado("en ejecución");
+                solicitud.setEstado("finalizado");
 
                 solicitudService.actualizarSolicitud(solicitud.getId(), solicitud);
 
-                getUI().ifPresent(ui -> ui.navigate("/priorizar/"));
+                getUI().ifPresent(ui -> ui.navigate("/finalizar/"));
             });
 
-            add(enviar, new HorizontalLayout(enviar));
+            Button cancelar = new Button("Cancelar proyecto", e -> {
+
+                solicitud.setEstado("cancelado");
+
+                solicitudService.actualizarSolicitud(solicitud.getId(), solicitud);
+
+                getUI().ifPresent(ui -> ui.navigate("/finalizar/"));
+            });
+
+
+
+            add(finalizar, cancelar);
 
 
         } else {

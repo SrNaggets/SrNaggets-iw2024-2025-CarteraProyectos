@@ -9,6 +9,7 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
+import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.html.Div;
@@ -19,6 +20,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.radiobutton.RadioGroupVariant;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.upload.Upload;
@@ -139,6 +141,7 @@ public class SolicitudView extends VerticalLayout {
                 "Generar valor compartido con la Comunidad Universitaria.",
                 "Reforzar la importancia del papel de la UCA en la sociedad.");
         alineamiento.setLabel("Su solicitud debe estar alineada con, al menos, uno de los anteriores objetivos estratégicos");
+        alineamiento.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
 
         alineamiento.addClassName("checkbox-group");
 
