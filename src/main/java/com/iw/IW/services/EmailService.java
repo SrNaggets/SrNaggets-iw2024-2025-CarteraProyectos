@@ -47,6 +47,14 @@ public class EmailService {
         mailSender.send(mensaje);
     }
 
+    public void enviarCorreoEliminacionUsuario(String destinatario, String nombre) {
+        SimpleMailMessage mensaje = new SimpleMailMessage();
+        mensaje.setTo(destinatario);
+        mensaje.setSubject("Notificación de Eliminación de Cuenta");
+        mensaje.setText("Hola " + nombre + ",\n\nTu cuenta ha sido eliminada por el administrador (CIO).\nSi crees que esto es un error, contacta con soporte.\n\nGracias.");
+        mailSender.send(mensaje);
+    }
+
 
     public void enviarCorreoEvaluacionEstrategica(String destinatario, String tituloSolicitud, String descripcion, String alineamiento) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
