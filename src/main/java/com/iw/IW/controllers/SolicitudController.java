@@ -95,8 +95,8 @@ public class SolicitudController {
     }
 
     @GetMapping("/cartera")
-    public List<Solicitud> visualizarCartera(@RequestParam(required = false, defaultValue = "fecha") String criterio, Authentication authentication) {
-        return solicitudService.visualizarCartera(authentication, criterio);
+    public List<Solicitud> visualizarCartera(@RequestParam Long usuarioId, @RequestParam String criterio) {
+        return solicitudService.visualizarCartera(usuarioId, criterio);
     }
 
 
