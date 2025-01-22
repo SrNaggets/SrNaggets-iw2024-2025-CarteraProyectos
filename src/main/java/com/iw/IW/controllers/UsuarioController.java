@@ -3,6 +3,8 @@ package com.iw.IW.controllers;
 import com.iw.IW.entities.Usuario;
 import com.iw.IW.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,5 +53,11 @@ public class UsuarioController {
             @RequestParam String nuevoRol,
             @RequestParam Long idSolicitante) {
         return usuarioService.cambiarRolUsuario(correoUsuario, nuevoRol, idSolicitante);
+    }
+    @DeleteMapping("/eliminar/{id}")
+    @PreAuthorize("hasRole('CIO')")
+    public ResponseEntity<?> eliminarUsuario(@PathVariable Long id) {
+        usuarioService.eliminarUsuario(id);
+        return ResponseEntity.ok("Usuario eliminado correctamente");
     }
 }

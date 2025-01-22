@@ -24,7 +24,7 @@ public class EmailService {
 
     public void enviarCorreoCambioEstado(String destinatario, String tituloSolicitud, String nuevoEstado, String mensajeAdicional) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
-         mensaje.setFrom("carteradeproyectosiw@gmail.com");
+        mensaje.setFrom("carteradeproyectosiw@gmail.com");
         mensaje.setTo(destinatario);
         mensaje.setSubject("Actualización del Estado de tu Solicitud");
         mensaje.setText("Hola,\n\nEl estado de tu solicitud '" + tituloSolicitud + "' ha cambiado a: " + nuevoEstado +
@@ -44,6 +44,14 @@ public class EmailService {
                 "\nRecursos Financieros: " + (recursosF != null ? recursosF : "No especificado") +
                 "\nAlineamiento: " + (alineamiento != null ? alineamiento : "No especificado") +
                 "\n\nGracias.");
+        mailSender.send(mensaje);
+    }
+
+    public void enviarCorreoEliminacionUsuario(String destinatario, String nombre) {
+        SimpleMailMessage mensaje = new SimpleMailMessage();
+        mensaje.setTo(destinatario);
+        mensaje.setSubject("Notificación de Eliminación de Cuenta");
+        mensaje.setText("Hola " + nombre + ",\n\nTu cuenta ha sido eliminada por el administrador (CIO).\nSi crees que esto es un error, contacta con soporte.\n\nGracias.");
         mailSender.send(mensaje);
     }
 

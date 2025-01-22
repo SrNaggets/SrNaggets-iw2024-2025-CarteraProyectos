@@ -5,6 +5,7 @@ import com.iw.IW.repositories.UsuarioRepository;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -91,8 +92,17 @@ public class UsuarioService {
         usuario.setVerificacion(null);
         usuarioRepository.save(usuario);
     }
-  
-  public void reiniciarContraseña(String correo) {
+
+    @PreAuthorize("hasRole('CIO')")
+    public void eliminarUsuario(Long usuarioId) {
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        usuarioRepository.delete(usuario);
+        emailService.enviarCorreoEliminacionUsuario(usuario.getCorreo(), usuario.getNombre());
+
+    }
+
+    public void reiniciarContraseña(String correo) {
         Usuario usuario = usuarioRepository.findByCorreo(correo)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 

@@ -19,5 +19,6 @@ public interface SolicitudRepository extends JpaRepository<Solicitud, Long> {
     List<Solicitud> findAllByOrderByPrioridadDesc();
     List<Solicitud> findAllByOrderByEstadoAsc();
     List<Solicitud> findByPromotorId(Long promotorId);
+    List<Solicitud> findByPromotorIdAndEstado(Long promotorId, String estado);
 
 }
