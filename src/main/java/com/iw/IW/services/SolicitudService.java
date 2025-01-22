@@ -175,27 +175,27 @@ public class SolicitudService {
 
 
 
-    public List<Solicitud> visualizarCartera(Authentication authentication, String criterio) {
-            String correoUsuario = authentication.getName();
-            Usuario usuario = usuarioRepository.findByCorreo(correoUsuario)
-                    .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    public List<Solicitud> visualizarCartera(Long usuarioId, String criterio) {
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-            boolean esAdministrador = usuario.getRole().equals("CIO") || usuario.getRole().equals("PROMOTOR") || usuario.getRole().equals("OTP");
+        boolean esAdministrador = usuario.getRole().equals("CIO") || usuario.getRole().equals("PROMOTOR") || usuario.getRole().equals("OTP");
 
-            switch (criterio) {
-                case "fecha":
-                    return esAdministrador ? solicitudRepository.findAllByOrderByCreatedAtDesc()
-                            : solicitudRepository.findByUsuarioIdOrderByCreatedAtDesc(usuario.getId());
-                case "importancia":
-                    return esAdministrador ? solicitudRepository.findAllByOrderByImportanciaPromotorDesc()
-                            : solicitudRepository.findByUsuarioIdOrderByImportanciaPromotorDesc(usuario.getId());
-                case "estado":
-                    return esAdministrador ? solicitudRepository.findAllByOrderByEstadoAsc()
-                            : solicitudRepository.findByUsuarioIdOrderByEstadoAsc(usuario.getId());
-                default:
-                    throw new RuntimeException("Criterio de ordenación no válido. Usa: fecha, importancia o estado.");
-            }
+        switch (criterio) {
+            case "fecha":
+                return esAdministrador ? solicitudRepository.findAllByOrderByCreatedAtDesc()
+                        : solicitudRepository.findByUsuarioIdOrderByCreatedAtDesc(usuario.getId());
+            case "importancia":
+                return esAdministrador ? solicitudRepository.findAllByOrderByImportanciaPromotorDesc()
+                        : solicitudRepository.findByUsuarioIdOrderByImportanciaPromotorDesc(usuario.getId());
+            case "estado":
+                return esAdministrador ? solicitudRepository.findAllByOrderByEstadoAsc()
+                        : solicitudRepository.findByUsuarioIdOrderByEstadoAsc(usuario.getId());
+            default:
+                throw new RuntimeException("Criterio de ordenación no válido. Usa: fecha, importancia o estado.");
         }
+    }
+
 
 
 }
