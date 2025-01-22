@@ -21,6 +21,7 @@ com\iw\IW\views\EstrategicasView.class
 com\iw\IW\views\EjecutarProyectoView.class
 com\iw\IW\views\EstrategicaView.class
 com\iw\IW\services\SecurityService.class
+com\iw\IW\views\NavegacionView.class
 com\iw\IW\repositories\SolicitudRepository.class
 com\iw\IW\views\CIOPriorizarProyectoView.class
 com\iw\IW\repositories\ProyectoRepository.class
@@ -35,6 +36,7 @@ com\iw\IW\dto\PromotorResponse$PromotorData.class
 com\iw\IW\controllers\AuthController.class
 com\iw\IW\entities\EvaluacionEstrategica.class
 com\iw\IW\views\CIOPriorizarView.class
+com\iw\IW\views\VerPerfilView.class
 com\iw\IW\views\CambiarRolesUsuarioView.class
 com\iw\IW\views\VerCarteraProyectosView.class
 com\iw\IW\entities\Solicitud.class

@@ -1,2 +1,3 @@
-org\vaadin\example\MainViewIT.class
+com\iw\IW\UsuarioServiceTest.class
 com\iw\IW\IwApplicationTests.class
+org\vaadin\example\MainViewIT.class

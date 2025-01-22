@@ -25,12 +25,13 @@ public class ProyectosCIOView extends VerticalLayout {
         setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         setAlignItems(FlexComponent.Alignment.AUTO);
 
+        Button principal = new Button("Volver a menú principal", click -> getUI().ifPresent(ui -> ui.navigate("")));
         Button logout = new Button("Logout", click -> securityService.logout());
-        add(logout);
+        add(new HorizontalLayout(principal, logout));
 
         List<Proyecto> aux = proyectoRepository.findByEstado("en marcha");
 
-        add(new H2("Solicitudes pendientes de evaluación estratégica:"));
+        add(new H2("Proyectos en marcha:"));
 
         HorizontalLayout solicitudes = new HorizontalLayout();
 
