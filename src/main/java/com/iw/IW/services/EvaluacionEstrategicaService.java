@@ -29,10 +29,10 @@ public class EvaluacionEstrategicaService {
         Solicitud solicitud = solicitudRepository.findById(solicitudId)
                 .orElseThrow(() -> new RuntimeException("Solicitud no encontrada"));
 
-        evaluacion.setSolicitud(solicitud);
+        evaluacion.setIdS(solicitudId);
         evaluacion.setFechaEvaluacion(LocalDateTime.now());
-        EvaluacionEstrategica evaluacionGuardada = evaluacionEstrategicaRepository.save(evaluacion);
 
+        EvaluacionEstrategica evaluacionGuardada = evaluacionEstrategicaRepository.save(evaluacion);
 
         String correoUsuario = solicitud.getUsuario().getCorreo();
         emailService.enviarCorreoEvaluacionEstrategica(
@@ -43,6 +43,7 @@ public class EvaluacionEstrategicaService {
         );
 
         solicitudService.cambiarEstado(solicitudId, "evaluado", null);
+
         return evaluacionGuardada;
     }
 

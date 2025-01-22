@@ -12,8 +12,11 @@ public class EvaluacionTecnica {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "idS", nullable = false)
+    private Long idS;
+
     @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "id")
+    @JoinColumn(name = "idS", referencedColumnName = "id", insertable = false, updatable = false )
     private Solicitud solicitud;
 
     @Column(nullable = false, length = 255)
@@ -34,8 +37,13 @@ public class EvaluacionTecnica {
     public EvaluacionTecnica() {
     }
 
+
     public Long getId() {
         return this.id;
+    }
+
+    public Long getIdS() {
+        return this.idS;
     }
 
     public Solicitud getSolicitud() {
@@ -64,6 +72,10 @@ public class EvaluacionTecnica {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setIdS(Long idS) {
+        this.idS = idS;
     }
 
     public void setSolicitud(Solicitud solicitud) {
@@ -98,6 +110,9 @@ public class EvaluacionTecnica {
         final Object this$id = this.getId();
         final Object other$id = other.getId();
         if (this$id == null ? other$id != null : !this$id.equals(other$id)) return false;
+        final Object this$idS = this.getIdS();
+        final Object other$idS = other.getIdS();
+        if (this$idS == null ? other$idS != null : !this$idS.equals(other$idS)) return false;
         final Object this$solicitud = this.getSolicitud();
         final Object other$solicitud = other.getSolicitud();
         if (this$solicitud == null ? other$solicitud != null : !this$solicitud.equals(other$solicitud)) return false;
@@ -131,6 +146,8 @@ public class EvaluacionTecnica {
         int result = 1;
         final Object $id = this.getId();
         result = result * PRIME + ($id == null ? 43 : $id.hashCode());
+        final Object $idS = this.getIdS();
+        result = result * PRIME + ($idS == null ? 43 : $idS.hashCode());
         final Object $solicitud = this.getSolicitud();
         result = result * PRIME + ($solicitud == null ? 43 : $solicitud.hashCode());
         final Object $descripcion = this.getDescripcion();
@@ -147,6 +164,6 @@ public class EvaluacionTecnica {
     }
 
     public String toString() {
-        return "EvaluacionTecnica(id=" + this.getId() + ", solicitud=" + this.getSolicitud() + ", descripcion=" + this.getDescripcion() + ", fechaEvaluacion=" + this.getFechaEvaluacion() + ", alineamiento=" + this.getAlineamiento() + ", recursosH=" + this.getRecursosH() + ", recursosF=" + this.getRecursosF() + ")";
+        return "EvaluacionTecnica(id=" + this.getId() + ", idS=" + this.getIdS() + ", solicitud=" + this.getSolicitud() + ", descripcion=" + this.getDescripcion() + ", fechaEvaluacion=" + this.getFechaEvaluacion() + ", alineamiento=" + this.getAlineamiento() + ", recursosH=" + this.getRecursosH() + ", recursosF=" + this.getRecursosF() + ")";
     }
 }

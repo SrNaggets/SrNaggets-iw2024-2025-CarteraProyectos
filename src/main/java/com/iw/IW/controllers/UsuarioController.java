@@ -60,5 +60,4 @@ public class UsuarioController {
         usuarioService.eliminarUsuario(id);
         return ResponseEntity.ok("Usuario eliminado correctamente");
     }
-
 }

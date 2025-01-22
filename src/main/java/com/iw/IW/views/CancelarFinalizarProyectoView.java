@@ -29,10 +29,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
-@Route("evaluacionestrategica")
-@PageTitle("Evaluación estratégica de solicitud")
+@Route("finalizar")
+@PageTitle("Finalizar proyecto")
 @RolesAllowed({"CIO"})
-public class EstrategicaView extends VerticalLayout implements HasUrlParameter<Long> {
+public class CancelarFinalizarProyectoView extends VerticalLayout implements HasUrlParameter<Long> {
 
 
     @Autowired
@@ -54,7 +54,7 @@ public class EstrategicaView extends VerticalLayout implements HasUrlParameter<L
 
             Button volver = new Button("Volver a solicitudes");
             volver.addClickListener(e -> {
-                getUI().ifPresent(ui -> ui.navigate("/evaluacionestrategica/"));
+                getUI().ifPresent(ui -> ui.navigate("/finalizar/"));
             });
             add(volver);
 
@@ -64,38 +64,34 @@ public class EstrategicaView extends VerticalLayout implements HasUrlParameter<L
 
 
             add(
-            new H4("Idoneidad técnica: " + evTecnica.getAlineamiento()),
+                    new H4("Idoneidad técnica: " + evTecnica.getAlineamiento()),
 
-            new H4("Recursos humanos necesarios: " + evTecnica.getRecursosH()),
+                    new H4("Recursos humanos necesarios: " + evTecnica.getRecursosH()),
 
-            new H4("Recursos económicos necesarios: " + evTecnica.getRecursosF() + "€"));
+                    new H4("Recursos económicos necesarios: " + evTecnica.getRecursosF() + "€"));
 
-            TextField descripcion = new TextField("Evaluación estratégica: ");
-            descripcion.addClassName("bordered");
-            descripcion.setPlaceholder("");
-            descripcion.setWidth("70%");
 
-            Button enviar = new Button("Enviar evaluación estratégica", e -> {
+            Button finalizar = new Button("Finalizar proyecto", e -> {
 
-                EvaluacionEstrategica evaluacionEstrategica = new EvaluacionEstrategica();
-                evaluacionEstrategica.setAlineamiento(descripcion.getValue());
-                evaluacionEstrategica.setId(solicitud.getId());
+                solicitud.setEstado("finalizado");
 
-                evaluacionEstrategicaService.registrarEvaluacionEstrategica(solicitud.getId(), evaluacionEstrategica);
+                solicitudService.actualizarSolicitud(solicitud.getId(), solicitud);
 
-                getUI().ifPresent(ui -> ui.navigate("/evaluacionestrategica/"));
+                getUI().ifPresent(ui -> ui.navigate("/finalizar/"));
             });
 
-            Button cancelar = new Button("Cancelar solicitud", e -> {
+            Button cancelar = new Button("Cancelar proyecto", e -> {
 
-                solicitudService.cambiarEstado(solicitud.getId(), "cancelado", null);
+                solicitud.setEstado("cancelado");
 
-                getUI().ifPresent(ui -> ui.navigate("/evaluacionestrategica/"));
+                solicitudService.actualizarSolicitud(solicitud.getId(), solicitud);
+
+                getUI().ifPresent(ui -> ui.navigate("/finalizar/"));
             });
 
-            cancelar.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
-            add(descripcion, new HorizontalLayout(enviar, cancelar));
+
+            add(finalizar, cancelar);
 
 
         } else {

@@ -1,6 +1,8 @@
 package com.iw.IW.views;
 
 import com.iw.IW.entities.Solicitud;
+import com.iw.IW.entities.Usuario;
+import com.iw.IW.repositories.UsuarioRepository;
 import com.iw.IW.services.SecurityService;
 import com.iw.IW.services.SolicitudService;
 import com.vaadin.flow.component.button.Button;
@@ -19,12 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-@Route("evaluacionestrategica")
-@PageTitle("Evaluación estratégica de solicitudes")
+@Route("roles")
+@PageTitle("Cambiar roles de usuarios")
 @RolesAllowed({"CIO"})
-public class EstrategicasView extends VerticalLayout {
+public class CambiarRolesView extends VerticalLayout {
 
-    public EstrategicasView(@Autowired SecurityService securityService, @Autowired SolicitudService solicitudService){
+    public CambiarRolesView(@Autowired SecurityService securityService, @Autowired UsuarioRepository usuarioRepository){
         setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         setAlignItems(FlexComponent.Alignment.AUTO);
 
@@ -33,25 +35,24 @@ public class EstrategicasView extends VerticalLayout {
 
         add(new HorizontalLayout(logout, principal));
 
-        List<Solicitud> aux = solicitudService.obtenerPorEstado("pendiente de evaluación estratégica");
+        List<Usuario> aux = usuarioRepository.findAll();
 
-        add(new H2("Solicitudes pendientes de evaluación estratégica:"));
+        add(new H2("Proyectos a finalizar/cancelar:"));
 
         if(aux.isEmpty()){
-            add(new H4("No quedan solicitudes pendientes de evaluación."));
+            add(new H4("No hay proyectos."));
         }
         else{
 
 
-            Grid<Solicitud> gridSolicitudes = new Grid<>(Solicitud.class, false);
-            gridSolicitudes.addColumn(new ComponentRenderer<>(p -> new Anchor("/evaluacionestrategica/" + p.getId(), p.getTitulo()))).setHeader("Título");
+            Grid<Usuario> gridUsuarios = new Grid<>(Usuario.class, false);
+            gridUsuarios.addColumn(new ComponentRenderer<>(p -> new Anchor("/roles/" + p.getId(), p.getNombre()))).setHeader("Título");
 
-            gridSolicitudes.addColumn(Solicitud::getInteresados).setHeader("Interesados");
-            gridSolicitudes.addColumn(Solicitud::getImportanciaPromotor).setHeader("Importancia para el promotor");
+            gridUsuarios.addColumn(Usuario::getRole).setHeader("Rol del usuario");
 
-            gridSolicitudes.setItems(aux);
+            gridUsuarios.setItems(aux);
 
-            add(gridSolicitudes);
+            add(gridUsuarios);
         }
     }
 }

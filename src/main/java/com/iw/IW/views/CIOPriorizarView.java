@@ -19,12 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-@Route("evaluacionestrategica")
-@PageTitle("Evaluación estratégica de solicitudes")
+@Route("priorizar")
+@PageTitle("Priorizar proyectos")
 @RolesAllowed({"CIO"})
-public class EstrategicasView extends VerticalLayout {
+public class CIOPriorizarView extends VerticalLayout {
 
-    public EstrategicasView(@Autowired SecurityService securityService, @Autowired SolicitudService solicitudService){
+    public CIOPriorizarView(@Autowired SecurityService securityService, @Autowired SolicitudService solicitudService){
         setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         setAlignItems(FlexComponent.Alignment.AUTO);
 
@@ -33,21 +33,21 @@ public class EstrategicasView extends VerticalLayout {
 
         add(new HorizontalLayout(logout, principal));
 
-        List<Solicitud> aux = solicitudService.obtenerPorEstado("pendiente de evaluación estratégica");
+        List<Solicitud> aux = solicitudService.obtenerPorEstado("evaluado");
 
-        add(new H2("Solicitudes pendientes de evaluación estratégica:"));
+        add(new H2("Proyectos a priorizar:"));
 
         if(aux.isEmpty()){
-            add(new H4("No quedan solicitudes pendientes de evaluación."));
+            add(new H4("No hay proyectos."));
         }
         else{
 
 
             Grid<Solicitud> gridSolicitudes = new Grid<>(Solicitud.class, false);
-            gridSolicitudes.addColumn(new ComponentRenderer<>(p -> new Anchor("/evaluacionestrategica/" + p.getId(), p.getTitulo()))).setHeader("Título");
+            gridSolicitudes.addColumn(new ComponentRenderer<>(p -> new Anchor("/priorizar/" + p.getId(), p.getTitulo()))).setHeader("Título");
 
             gridSolicitudes.addColumn(Solicitud::getInteresados).setHeader("Interesados");
-            gridSolicitudes.addColumn(Solicitud::getImportanciaPromotor).setHeader("Importancia para el promotor");
+            gridSolicitudes.addColumn(Solicitud::getPrioridad).setHeader("Prioridad");
 
             gridSolicitudes.setItems(aux);
 
