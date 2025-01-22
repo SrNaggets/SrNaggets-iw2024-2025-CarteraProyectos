@@ -72,7 +72,41 @@ public class MainView extends VerticalLayout implements BeforeEnterObserver {
                 getUI().ifPresent(ui -> ui.navigate("/evaluacionestrategica"));
             });
             add(avalar);
+
+            Button proyectos = new Button("Proyectos en marcha", click -> {
+                getUI().ifPresent(ui -> ui.navigate("/proyectos"));
+            });
+            add(proyectos);
+
+            Button priorizar = new Button("Priorizar proyectos", click -> {
+                getUI().ifPresent(ui -> ui.navigate("/priorizar"));
+            });
+            add(priorizar);
+
+            Button ejecutar = new Button("Ejecutar proyectos", click -> {
+                getUI().ifPresent(ui -> ui.navigate("/ejecutar"));
+            });
+            add(ejecutar);
+
+            Button finalizar = new Button("Finalizar/cancelar proyectos", click -> {
+                getUI().ifPresent(ui -> ui.navigate("/finalizar"));
+            });
+            add(finalizar);
+
+            Button roless = new Button("Cambiar roles", click -> {
+                getUI().ifPresent(ui -> ui.navigate("/roles"));
+            });
+            add(roless);
         }
+
+        add(new Button("Ver cartera de proyectos", e -> {
+            getUI().ifPresent(ui -> ui.navigate("/carteraproyectos"));
+        }));
+
+        add(new Button("Ver mis solicitudes", e -> {
+            getUI().ifPresent(ui -> ui.navigate("/missolicitudes"));
+        }));
+
 
 
     }
@@ -82,8 +116,11 @@ public class MainView extends VerticalLayout implements BeforeEnterObserver {
 
         UserDetails user = securityService.getAuthenticatedUser();
 
-        if(usuarioRepository.findByNombre(user.getUsername()).getVeri() == 0){
-            event.rerouteTo(VerificationView.class);
+        if(usuarioRepository.findByCorreo(user.getUsername()).isPresent()){
+            if(usuarioRepository.findByCorreo(user.getUsername()).get().getVeri() == 0){
+                event.rerouteTo(VerificationView.class);
+            }
+
         }
     }
 }

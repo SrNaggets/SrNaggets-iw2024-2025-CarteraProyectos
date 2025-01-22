@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -58,32 +60,12 @@ public class SecurityConfiguration
      * NOTE: This shouldn't be used in real world applications.
      */
     @Bean
-    public UserDetailsManager userDetailsService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-
-        for ( Usuario usuario : usuarioRepository.findAll()){
-            UserDetails user = User.withUsername(usuario.getNombre())
-                    .password(usuario.getContraseña())
-                    .roles(usuario.getRole())
-                    .build();
-            manager.createUser(user);
-        }
-
-        return manager;
-
-
-        /*
-        UserDetails user =
-                User.withUsername("user")
-                        .password("{noop}user")
-                        .roles("USER")
-                        .build();
-        UserDetails admin =
-                User.withUsername("admin")
-                        .password("{noop}admin")
-                        .roles("ADMIN")
-                        .build();
-        return new InMemoryUserDetailsManager(user, admin);
-        */
+    public UserDetailsService userDetailsService() {
+        return username -> usuarioRepository.findByCorreo(username)
+                .map(usuario -> User.withUsername(usuario.getCorreo())
+                        .password(usuario.getContraseña())
+                        .roles(usuario.getRole())
+                        .build())
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
     }
 }

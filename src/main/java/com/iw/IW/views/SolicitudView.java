@@ -9,6 +9,7 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
+import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.html.Div;
@@ -19,6 +20,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.radiobutton.RadioGroupVariant;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.upload.Upload;
@@ -68,7 +70,9 @@ public class SolicitudView extends VerticalLayout {
             Button logout = new Button("Logout", click ->
                     securityService.logout());
 
-            add(new HorizontalLayout(logout, new Paragraph(user.getUsername()), new Paragraph(user.getAuthorities().toString())));
+            Button principal = new Button("Volver a menú principal", click -> getUI().ifPresent(ui -> ui.navigate("")));
+
+            add(new HorizontalLayout(logout, principal));
 
         }
 
@@ -113,6 +117,7 @@ public class SolicitudView extends VerticalLayout {
         importanciaProm.setPlaceholder("Indique un valor entre 0 y 5");
         importanciaProm.setMin(0);
         importanciaProm.setMax(5);
+        importanciaProm.setWidth("50%");
 
 
         TextField interesados = new TextField("Interesados:");
@@ -136,6 +141,7 @@ public class SolicitudView extends VerticalLayout {
                 "Generar valor compartido con la Comunidad Universitaria.",
                 "Reforzar la importancia del papel de la UCA en la sociedad.");
         alineamiento.setLabel("Su solicitud debe estar alineada con, al menos, uno de los anteriores objetivos estratégicos");
+        alineamiento.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
 
         alineamiento.addClassName("checkbox-group");
 
@@ -249,10 +255,12 @@ public class SolicitudView extends VerticalLayout {
 
                     titulo.getValue(), nombreCorto.getValue(), interesados.getValue(), financiacion.getValue().longValue(), alis[0], alis[1], alis[2],
                     alis[3], alis[4], alis[5], alis[6], alcance.getValue(), importanciaProm.getValue().intValue(),
-                    usuarioRepository.findByNombre(securityService.getAuthenticatedUser().getUsername()),
+                    usuarioRepository.findByCorreo(securityService.getAuthenticatedUser().getUsername()).get(),
                     this.memoriaBytes, this.tecnicoBytes, this.presupuestoBytes, 2);
 
             sol = solicitudService.asignarPromotor(sol.getId(), usuarioRepository.findByNombre(promotor.getValue()).getId());
+
+            Notification.show("Solicitud creada con éxito", 3000, Notification.Position.TOP_CENTER);
         });
 
         // Theme variants give you predefined extra styles for components.

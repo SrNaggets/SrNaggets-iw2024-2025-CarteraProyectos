@@ -4,13 +4,21 @@ import com.iw.IW.entities.Solicitud;
 import com.iw.IW.entities.Usuario;
 import com.iw.IW.repositories.SolicitudRepository;
 import com.iw.IW.repositories.UsuarioRepository;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.html.Anchor;
+import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.H4;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
+import com.vaadin.flow.server.StreamResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -170,6 +178,62 @@ public class SolicitudService {
             default:
                 throw new RuntimeException("Tipo de archivo no válido. Debe ser: memoria, tecnico o presupuesto.");
         }
+    }
+
+
+    public List<Component> mostrarSolicitud(Solicitud solicitud){
+
+        List<Component> lista = new ArrayList<>(List.of());
+
+        lista.add(new H3("Título: " + solicitud.getTitulo()));
+
+        lista.add(new H4("Importancia para el promotor: " + solicitud.getImportanciaPromotor()));
+
+        lista.add(new H4("Interesados en el proyecto: " + solicitud.getInteresados()));
+        lista.add(new H4("Financiación aportada: " + solicitud.getOros() + "€"));
+
+        lista.add(new H3("Justificación del proyecto:"));
+
+        List<String> alineamientos = new ArrayList<>(List.of());
+
+        if(solicitud.getAli1() == 1) alineamientos.add("innovar, rediseñar y actualizar nuestra oferta formativa para adaptarla a las necesidades sociales y económicas de nuestro entorno");
+        if(solicitud.getAli2() == 1) alineamientos.add("conseguir los niveles más altos de calidad en nuestra oferta formativa propia y reglada");
+        if(solicitud.getAli3() == 1) alineamientos.add("aumentar significativamente nuestro posicionamiento en investigación y transferir de forma relevante y útil nuestra investigación a nuestro tejido social y productivo");
+        if(solicitud.getAli4() == 1) alineamientos.add("consolidar un modelo de gobierno sostenible y socialmente responsable");
+        if(solicitud.getAli5() == 1) alineamientos.add("conseguir que la transparencia sea un valor distintivo y relevante en la UCA");
+        if(solicitud.getAli6() == 1) alineamientos.add("generar valor compartido con la Comunidad Universitaria");
+        if(solicitud.getAli7() == 1) alineamientos.add("reforzar la importancia del papel de la UCA en la sociedad");
+
+        String alisFinal = String.join(", ", alineamientos);
+        alisFinal = String.join("", alisFinal, ".");
+        alisFinal = alisFinal.substring(0, 1).toUpperCase() + alisFinal.substring(1);
+
+        lista.add((new Paragraph(alisFinal)));
+
+
+        lista.add(new H4("Número de personas que se beneficiarían de la implantación del proyecto: " + solicitud.getAlcance()));
+
+
+        lista.add(new H3("Archivos adjuntos"));
+
+        StreamResource memoriaArchivo = new StreamResource("memoria.pdf", () -> new ByteArrayInputStream(solicitud.getMemoria()));
+
+        Anchor enlaceMemoria = new Anchor(memoriaArchivo, "Memoria");
+
+        StreamResource tecnicoArchivo = new StreamResource("especificaciones.pdf", () -> new ByteArrayInputStream(solicitud.getTecnico()));
+
+        Anchor enlaceTecnico = new Anchor(tecnicoArchivo, "Especificaciones técnicas");
+
+        StreamResource presupuestosArchivo = new StreamResource("presupuestos.pdf", () -> new ByteArrayInputStream(solicitud.getPresupuesto()));
+
+        Anchor enlacePresupuestos = new Anchor(presupuestosArchivo, "Presupuestos");
+
+
+        lista.add(enlaceMemoria);
+        lista.add(enlaceTecnico);
+        lista.add(enlacePresupuestos);
+
+        return lista;
     }
 
 
