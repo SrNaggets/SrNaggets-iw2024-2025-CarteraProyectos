@@ -5,6 +5,7 @@ import com.iw.IW.repositories.UsuarioRepository;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -61,6 +62,7 @@ public class UsuarioService {
 
         return nuevoUsuario;
     }
+    @Async
     public void reenviarCorreo(String correo, String codigo){
         emailService.enviarCorreoVerificacion(correo, codigo);
     }
@@ -92,7 +94,7 @@ public class UsuarioService {
         usuario.setVerificacion(null);
         usuarioRepository.save(usuario);
     }
-
+    @Async
     @PreAuthorize("hasRole('CIO')")
     public void eliminarUsuario(Long usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
@@ -101,7 +103,7 @@ public class UsuarioService {
         emailService.enviarCorreoEliminacionUsuario(usuario.getCorreo(), usuario.getNombre());
 
     }
-
+    @Async
     public void reiniciarContraseña(String correo) {
         Usuario usuario = usuarioRepository.findByCorreo(correo)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));

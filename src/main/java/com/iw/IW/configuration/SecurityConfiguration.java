@@ -7,6 +7,7 @@ import com.vaadin.flow.spring.security.VaadinWebSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,6 +21,9 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
+import org.springframework.boot.actuate.health.HealthEndpoint;
+import org.springframework.boot.actuate.info.InfoEndpoint;
 
 @EnableWebSecurity
 @Configuration
@@ -42,8 +46,12 @@ public class SecurityConfiguration
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests(auth -> auth.requestMatchers(new AntPathRequestMatcher("/public/**"))
-                .permitAll());
+        http.authorizeHttpRequests(auth -> {
+            auth.requestMatchers(EndpointRequest.to(HealthEndpoint.class, InfoEndpoint.class)).permitAll();
+            auth.requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("CIO"); 
+            auth.requestMatchers(new AntPathRequestMatcher("/public/**")).permitAll();
+
+        });
 
         super.configure(http);
         setLoginView(http, LoginView.class);
@@ -67,5 +75,9 @@ public class SecurityConfiguration
                         .roles(usuario.getRole())
                         .build())
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + username));
+    }
+    @EnableAsync
+    public class AsyncConfiguration {
+
     }
 }
