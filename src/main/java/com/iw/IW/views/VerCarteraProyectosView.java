@@ -32,8 +32,12 @@ import java.util.List;
 public class VerCarteraProyectosView extends VerticalLayout {
 
     public VerCarteraProyectosView(@Autowired SecurityService securityService, @Autowired UsuarioRepository usuarioRepository, @Autowired SolicitudRepository solicitudRepository, @Autowired SolicitudService solicitudService){
-        setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
+        //setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         setAlignItems(FlexComponent.Alignment.AUTO);
+
+        getStyle().setBackground("url('https://files.catbox.moe/rdghw1.png')");
+        setHeight("100%");
+        setWidth("100%");
 
         Usuario usuario = usuarioRepository.findByCorreo(securityService.getAuthenticatedUser().getUsername()).get();
 
@@ -48,7 +52,7 @@ public class VerCarteraProyectosView extends VerticalLayout {
         add(new H2("Cartera de proyectos:"));
 
         if(aux.isEmpty()){
-            add(new H4("No hay solicitudes en la cartera de proyectos."));
+            add(new H4("No hay proyectos en ejecución."));
         }
         else{
 

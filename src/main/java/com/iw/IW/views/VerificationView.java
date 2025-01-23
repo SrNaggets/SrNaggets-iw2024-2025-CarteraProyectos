@@ -5,6 +5,8 @@ import com.iw.IW.repositories.UsuarioRepository;
 import com.iw.IW.services.SecurityService;
 import com.iw.IW.services.UsuarioService;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -71,7 +73,7 @@ public class VerificationView extends VerticalLayout {
                 }
             });
 
-            add(campoCodigo, submit, reenviar);
+            add(new H2("Bienvenido a la cartera de la UCA"), new Span("Revisa tu correo e introduce el código que has recibido."), campoCodigo, submit, reenviar);
         }
         else{
             getUI().ifPresent(ui -> ui.navigate("/login"));

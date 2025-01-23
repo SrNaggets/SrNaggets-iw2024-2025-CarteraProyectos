@@ -70,7 +70,7 @@ public class SolicitudView extends VerticalLayout {
             Button logout = new Button("Logout", click ->
                     securityService.logout());
 
-            Button principal = new Button("Volver a menú principal", click -> getUI().ifPresent(ui -> ui.navigate("")));
+            Button principal = new Button("Volver a menú principal", click -> getUI().ifPresent(ui -> ui.navigate("/menuprincipal")));
 
             add(new HorizontalLayout(logout, principal));
 
@@ -261,6 +261,7 @@ public class SolicitudView extends VerticalLayout {
             sol = solicitudService.asignarPromotor(sol.getId(), usuarioRepository.findByNombre(promotor.getValue()).getId());
 
             Notification.show("Solicitud creada con éxito", 3000, Notification.Position.TOP_CENTER);
+            add(new Button("Volver a menú principal", click -> getUI().ifPresent(ui -> ui.navigate("/menuprincipal"))));
         });
 
         // Theme variants give you predefined extra styles for components.

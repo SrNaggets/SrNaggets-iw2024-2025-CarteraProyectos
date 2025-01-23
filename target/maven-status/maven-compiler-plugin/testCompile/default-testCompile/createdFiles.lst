@@ -1,3 +1,6 @@
+com\iw\IW\EvaluacionTecnicaServiceTest.class
+com\iw\IW\SolicitudServiceTest.class
 com\iw\IW\UsuarioServiceTest.class
+com\iw\IW\EvaluacionEstrategicaServiceTest.class
 com\iw\IW\IwApplicationTests.class
 org\vaadin\example\MainViewIT.class
