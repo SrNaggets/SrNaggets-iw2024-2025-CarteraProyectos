@@ -30,7 +30,7 @@ public class OlvidaContraseñaView extends VerticalLayout {
 
     public OlvidaContraseñaView(){
 
-        setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
+        //setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         setAlignItems(FlexComponent.Alignment.CENTER);
 
         getStyle().setBackground("url('https://files.catbox.moe/o68fl3.png')");
