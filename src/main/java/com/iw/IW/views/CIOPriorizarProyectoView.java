@@ -73,6 +73,7 @@ public class CIOPriorizarProyectoView extends VerticalLayout implements HasUrlPa
                     new H4("Recursos económicos necesarios: " + evTecnica.getRecursosF() + "€"));
 
             NumberField prioridad = new NumberField("Prioridad asignada: ");
+            prioridad.setPlaceholder("Número del 1 al 5");
             prioridad.setMax(5);
             prioridad.setMin(1);
             prioridad.addClassName("bordered");

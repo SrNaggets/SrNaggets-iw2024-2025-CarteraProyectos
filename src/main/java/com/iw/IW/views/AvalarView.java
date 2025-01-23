@@ -7,6 +7,7 @@ import com.iw.IW.services.SolicitudService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
@@ -51,7 +52,9 @@ public class AvalarView extends VerticalLayout implements HasUrlParameter<Long> 
 
             aprobar.addClickListener(aprobado -> {
                 solicitudService.cambiarEstado(solicitud.getId(), "pendiente de evaluación técnica", null);
-                getUI().ifPresent(ui -> ui.navigate("/avalar/"));
+
+                Notification.show("Proyecto avalado con éxito", 3000, Notification.Position.TOP_CENTER);
+                add(new Button("Volver atrás", click -> getUI().ifPresent(ui -> ui.navigate("/avalar"))));
             });
 
             Button rechazar = new Button("Rechazar");
@@ -59,7 +62,8 @@ public class AvalarView extends VerticalLayout implements HasUrlParameter<Long> 
 
             rechazar.addClickListener(rechazado -> {
                 solicitudService.cambiarEstado(solicitud.getId(), "rechazado", null);
-                getUI().ifPresent(ui -> ui.navigate("/avalar/"));
+                Notification.show("Proyecto rechazado", 3000, Notification.Position.TOP_CENTER);
+                add(new Button("Volver atrás", click -> getUI().ifPresent(ui -> ui.navigate("/avalar"))));
             });
 
             add(new HorizontalLayout(aprobar, rechazar));

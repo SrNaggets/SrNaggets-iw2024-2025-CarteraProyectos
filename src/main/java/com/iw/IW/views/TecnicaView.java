@@ -8,6 +8,7 @@ import com.iw.IW.services.SolicitudService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
@@ -84,7 +85,9 @@ public class TecnicaView extends VerticalLayout implements HasUrlParameter<Long>
 
                 evaluacionTecnicaService.registrarEvaluacionTecnica(solicitud.getId(), evaluacionTecnica);
 
-                getUI().ifPresent(ui -> ui.navigate("/evaluaciontecnica/"));
+
+                Notification.show("Evaluación técnica creada con éxito", 3000, Notification.Position.TOP_CENTER);
+                add(new Button("Volver atrás", click -> getUI().ifPresent(ui -> ui.navigate("/evaluaciontecnica"))));
             });
 
             add(Alineamiento, RecursosH, RecursosF, enviar);

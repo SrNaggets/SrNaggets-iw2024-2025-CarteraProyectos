@@ -15,6 +15,7 @@ import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -134,7 +135,8 @@ public class ProyectoCIOView extends VerticalLayout implements HasUrlParameter<L
 
                 solicitudService.cambiarEstado(solicitud.getId(), "cancelado", null);
 
-                getUI().ifPresent(ui -> ui.navigate("/proyectos/"));
+                Notification.show("Proyecto cancelado con éxito", 3000, Notification.Position.TOP_CENTER);
+                add(new Button("Volver atrás", click -> getUI().ifPresent(ui -> ui.navigate("/proyectos"))));
             });
 
 

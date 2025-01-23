@@ -66,10 +66,10 @@ public class VerCarteraProyectosView extends VerticalLayout {
 
             gridSolicitudes.setItems(aux);
 
-            MenuBar opciones = new MenuBar();
+            //MenuBar opciones = new MenuBar();
 
 
-
+            /*
             opciones.addItem("Fecha", e -> {
                 gridSolicitudes.setItems(solicitudService.visualizarCartera(usuario.getId(), "fecha"));
             });
@@ -78,9 +78,9 @@ public class VerCarteraProyectosView extends VerticalLayout {
             });
             opciones.addItem("Estado", e -> {
                 gridSolicitudes.setItems(solicitudService.visualizarCartera(usuario.getId(), "estado"));
-            });
+            });*/
 
-            add(gridSolicitudes, opciones);
+            add(gridSolicitudes);
         }
     }
 }

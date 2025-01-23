@@ -14,6 +14,7 @@ import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
@@ -85,7 +86,8 @@ public class EstrategicaView extends VerticalLayout implements HasUrlParameter<L
 
                 evaluacionEstrategicaService.registrarEvaluacionEstrategica(solicitud.getId(), evaluacionEstrategica);
 
-                getUI().ifPresent(ui -> ui.navigate("/evaluacionestrategica/"));
+                Notification.show("Evaluación estratégica creada con éxito", 3000, Notification.Position.TOP_CENTER);
+                add(new Button("Volver atrás", click -> getUI().ifPresent(ui -> ui.navigate("/evaluacionestrategica"))));
             });
 
             Button cancelar = new Button("Cancelar solicitud", e -> {
