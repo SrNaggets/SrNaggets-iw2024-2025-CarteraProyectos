@@ -48,7 +48,7 @@ public class OlvidaContraseñaView extends VerticalLayout {
             if(usuarioRepository.findByCorreo(fieldCorreo.getValue()).isPresent()){
 
                 usuarioService.reiniciarContraseña(fieldCorreo.getValue());
-                Notification.show("Contraseña reiniciada con éxito, mira en tu correo", 5000, Notification.Position.MIDDLE);
+                Notification.show("Contraseña reiniciada con éxito, mira en tu correo", 5000, Notification.Position.TOP_CENTER);
 
             }
         });

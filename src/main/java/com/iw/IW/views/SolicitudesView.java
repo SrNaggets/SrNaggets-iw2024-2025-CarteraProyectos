@@ -1,6 +1,7 @@
 package com.iw.IW.views;
 
 import com.iw.IW.entities.Solicitud;
+import com.iw.IW.entities.Usuario;
 import com.iw.IW.repositories.SolicitudRepository;
 import com.iw.IW.repositories.UsuarioRepository;
 import com.iw.IW.services.SecurityService;
@@ -38,18 +39,14 @@ public class SolicitudesView extends VerticalLayout {
 
         add(new HorizontalLayout(logout, principal));
 
-        List<Solicitud> aux = solicitudRepository.findByPromotorId(usuarioRepository.findByCorreo(securityService.getAuthenticatedUser().getUsername()).get().getId());
-        List<Solicitud> aux2 = new java.util.ArrayList<>(List.of());
+        Usuario promotor = usuarioRepository.findByCorreo(securityService.getAuthenticatedUser().getUsername()).get();
 
-        for(Solicitud solAux : aux){
-            if(!solAux.getEstado().equals("solicitado")){
-                aux2.add(solAux);
-            }
-        }
+        List<Solicitud> aux = solicitudRepository.findByPromotorIdAndEstado(promotor.getId(), "solicitado");
+
 
         add(new H2("Solicitudes pendientes de evaluar:"));
 
-        if(aux2.isEmpty()){
+        if(aux.isEmpty()){
             add(new H4("No quedan solicitudes pendientes de avalación."));
         }
         else{
@@ -61,7 +58,7 @@ public class SolicitudesView extends VerticalLayout {
             gridSolicitudes.addColumn(Solicitud::getInteresados).setHeader("Interesados");
             gridSolicitudes.addColumn(Solicitud::getImportanciaPromotor).setHeader("Importancia para el promotor");
 
-            gridSolicitudes.setItems(aux2);
+            gridSolicitudes.setItems(aux);
 
         /*
         for(Solicitud solicitud : aux){

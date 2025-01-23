@@ -28,6 +28,7 @@ com\iw\IW\repositories\ProyectoRepository.class
 com\iw\IW\views\VerificationView.class
 com\iw\IW\views\ProyectosCIOView.class
 com\iw\IW\views\SolicitudesView.class
+com\iw\IW\configuration\SecurityConfiguration$AsyncConfiguration.class
 com\iw\IW\services\EvaluacionTecnicaService.class
 com\iw\IW\entities\Usuario.class
 com\iw\IW\services\UsuarioService.class

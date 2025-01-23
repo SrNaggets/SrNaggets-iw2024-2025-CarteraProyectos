@@ -30,6 +30,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static javax.swing.UIManager.getUI;
+
 @Route("/menuprincipal")
 @PageTitle("Menú principal")
 @RolesAllowed({"USER", "ADMIN", "normal", "PROMOTOR", "CIO", "OTP"})
@@ -51,6 +53,12 @@ public class NavegacionView extends VerticalLayout implements BeforeEnterObserve
         setHeight("100%");
         setWidth("100%");
 
+
+
+        Set<String> roles = securityService.getAuthenticatedUser().getAuthorities().stream()
+                .map(authority -> authority.getAuthority())
+                .collect(Collectors.toSet());
+
         MenuBar menu = new MenuBar();
         Button logout = new Button("Cerrar sesión", click -> securityService.logout());
         logout.addThemeVariants(ButtonVariant.LUMO_ERROR);
@@ -60,10 +68,6 @@ public class NavegacionView extends VerticalLayout implements BeforeEnterObserve
 
         menu.addItem("Crear solicitud", e -> getUI().ifPresent(ui -> ui.navigate("/solicitud")));
 
-
-        Set<String> roles = securityService.getAuthenticatedUser().getAuthorities().stream()
-                .map(authority -> authority.getAuthority())
-                .collect(Collectors.toSet());
 
         if(roles.contains("ROLE_PROMOTOR")){
             menu.addItem("Avalar solicitudes", click ->
