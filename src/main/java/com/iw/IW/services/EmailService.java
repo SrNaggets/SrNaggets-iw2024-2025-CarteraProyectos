@@ -3,6 +3,7 @@ package com.iw.IW.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,7 +12,7 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-
+    @Async
     public void enviarCorreoVerificacion(String destinatario, String codigo) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
         mensaje.setFrom("carteradeproyectosiw@gmail.com");
@@ -21,7 +22,7 @@ public class EmailService {
         mailSender.send(mensaje);
     }
 
-
+    @Async
     public void enviarCorreoCambioEstado(String destinatario, String tituloSolicitud, String nuevoEstado, String mensajeAdicional) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
         mensaje.setFrom("carteradeproyectosiw@gmail.com");
@@ -32,7 +33,7 @@ public class EmailService {
                 "\n\nGracias.");
         mailSender.send(mensaje);
     }
-
+    @Async
     public void enviarCorreoEvaluacionTecnica(String destinatario, String tituloSolicitud, String descripcion, String recursosH, Long recursosF, String alineamiento) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
         mensaje.setFrom("carteradeproyectosiw@gmail.com");
@@ -46,7 +47,7 @@ public class EmailService {
                 "\n\nGracias.");
         mailSender.send(mensaje);
     }
-
+    @Async
     public void enviarCorreoEliminacionUsuario(String destinatario, String nombre) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
         mensaje.setTo(destinatario);
@@ -55,7 +56,7 @@ public class EmailService {
         mailSender.send(mensaje);
     }
 
-
+    @Async
     public void enviarCorreoEvaluacionEstrategica(String destinatario, String tituloSolicitud, String descripcion, String alineamiento) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
         mensaje.setFrom("carteradeproyectosiw@gmail.com");
@@ -67,6 +68,7 @@ public class EmailService {
                 "\n\nGracias.");
         mailSender.send(mensaje);
     }
+    @Async
     public void enviarCorreoNotificacionPromotor(String destinatario, String tituloSolicitud) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
         mensaje.setFrom("carteradeproyectosiw@gmail.com");
@@ -77,7 +79,7 @@ public class EmailService {
                 "\n\nGracias.");
         mailSender.send(mensaje);
     }
-
+    @Async
     public void enviarCorreoRecuperacionContraseña(String destinatario, String nuevaContraseña) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
         mensaje.setFrom("carteradeproyectosiw@gmail.com");
@@ -87,7 +89,7 @@ public class EmailService {
                 "\n\nPor favor, cámbiala después de iniciar sesión.\n\nGracias.");
         mailSender.send(mensaje);
     }
-
+    @Async
     public void enviarCorreoCambioRol(String destinatario, String nuevoRol) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
         mensaje.setFrom("carteradeproyectosiw@gmail.com");
