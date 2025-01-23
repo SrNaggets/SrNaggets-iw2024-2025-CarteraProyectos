@@ -58,7 +58,7 @@ public class MainView extends VerticalLayout implements BeforeEnterObserver{
 
         entrar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-        add(new H2("Bienvenido a la cartera de proyectos tecnológicos"), entrar);
+        add(new H2("Bienvenido a la cartera de proyectos tecnológicos de la UCA"), entrar);
 
     }
 

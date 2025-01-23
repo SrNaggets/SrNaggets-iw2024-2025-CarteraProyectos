@@ -43,7 +43,7 @@ public class VerCarteraProyectosView extends VerticalLayout {
 
         add(new HorizontalLayout(logout, principal));
 
-        List<Solicitud> aux = solicitudRepository.findAll();
+        List<Solicitud> aux = solicitudRepository.findByEstado("en ejecución");
 
         add(new H2("Cartera de proyectos:"));
 

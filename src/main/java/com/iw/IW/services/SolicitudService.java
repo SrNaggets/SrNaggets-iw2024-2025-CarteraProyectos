@@ -5,10 +5,7 @@ import com.iw.IW.entities.Usuario;
 import com.iw.IW.repositories.SolicitudRepository;
 import com.iw.IW.repositories.UsuarioRepository;
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.html.Anchor;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.H4;
-import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.server.StreamResource;
@@ -187,10 +184,14 @@ public class SolicitudService {
 
         lista.add(new H3("Título: " + solicitud.getTitulo()));
 
-        lista.add(new H4("Importancia para el promotor: " + solicitud.getImportanciaPromotor()));
+        lista.add(new Hr());
 
-        lista.add(new H4("Interesados en el proyecto: " + solicitud.getInteresados()));
-        lista.add(new H4("Financiación aportada: " + solicitud.getOros() + "€"));
+        lista.add(new Paragraph("- Importancia para el promotor: " + solicitud.getImportanciaPromotor()));
+
+        lista.add(new Paragraph("- Interesados en el proyecto: " + solicitud.getInteresados()));
+        lista.add(new Paragraph("- Financiación aportada: " + solicitud.getOros() + "€"));
+
+        lista.add(new Hr());
 
         lista.add(new H3("Justificación del proyecto:"));
 
@@ -210,9 +211,12 @@ public class SolicitudService {
 
         lista.add((new Paragraph(alisFinal)));
 
+        lista.add(new Hr());
 
-        lista.add(new H4("Número de personas que se beneficiarían de la implantación del proyecto: " + solicitud.getAlcance()));
 
+        lista.add(new Paragraph("Número de personas que se beneficiarían de la implantación del proyecto: " + solicitud.getAlcance()));
+
+        lista.add(new Hr());
 
         lista.add(new H3("Archivos adjuntos"));
 
@@ -232,6 +236,8 @@ public class SolicitudService {
         lista.add(enlaceMemoria);
         lista.add(enlaceTecnico);
         lista.add(enlacePresupuestos);
+
+        lista.add(new Hr());
 
         return lista;
     }

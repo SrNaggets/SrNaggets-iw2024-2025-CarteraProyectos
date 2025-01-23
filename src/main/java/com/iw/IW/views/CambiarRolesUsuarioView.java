@@ -22,6 +22,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.component.radiobutton.RadioGroupVariant;
 import com.vaadin.flow.component.textfield.NumberField;
+import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
@@ -93,10 +94,13 @@ public class CambiarRolesUsuarioView extends VerticalLayout implements HasUrlPar
                 nombreUsuario.setPlaceholder("Usuario");
                 nombreUsuario.setWidth("50%");
 
-                TextField contraseñaUsuario = new TextField("Nueva contraseña:");
-                nombreUsuario.addClassName("bordered");
-                nombreUsuario.setPlaceholder("");
-                nombreUsuario.setWidth("50%");
+                PasswordField contraseñaUsuario = new PasswordField("Nueva contraseña:");
+                contraseñaUsuario.addClassName("bordered");
+                contraseñaUsuario.setPlaceholder("");
+                contraseñaUsuario.setWidth("50%");
+                contraseñaUsuario.setMinLength(6);
+                contraseñaUsuario.setMaxLength(40);
+
 
                 add(nombreUsuario, contraseñaUsuario);
 
@@ -122,6 +126,13 @@ public class CambiarRolesUsuarioView extends VerticalLayout implements HasUrlPar
 
 
                     add(enviar);
+
+                    Button eliminar = new Button("Eliminar usuario", e -> {
+                        usuarioService.eliminarUsuario(usuario.getId());
+                        Notification.show("Usuario eliminado con éxito", 3000, Notification.Position.TOP_CENTER);
+                    });
+                    eliminar.addThemeVariants(ButtonVariant.LUMO_ERROR);
+                    add(eliminar);
                 }
                 else{
                     Button enviar = new Button("Actualizar usuario", e -> {
