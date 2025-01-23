@@ -27,6 +27,8 @@ import java.util.List;
 public class CambiarRolesView extends VerticalLayout {
 
     public CambiarRolesView(@Autowired SecurityService securityService, @Autowired UsuarioRepository usuarioRepository){
+        getStyle().setBackground("#d6fdff");
+        setSizeUndefined();
         setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         setAlignItems(FlexComponent.Alignment.AUTO);
 

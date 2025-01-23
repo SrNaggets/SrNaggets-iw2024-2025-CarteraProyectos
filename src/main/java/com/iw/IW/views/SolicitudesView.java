@@ -32,6 +32,8 @@ public class SolicitudesView extends VerticalLayout {
 
         setJustifyContentMode(JustifyContentMode.CENTER);
         setAlignItems(Alignment.AUTO);
+        getStyle().setBackground("#d6fdff");
+        setSizeUndefined();
 
         Button logout = new Button("Logout", click -> securityService.logout());
 

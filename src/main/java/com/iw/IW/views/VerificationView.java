@@ -38,6 +38,8 @@ public class VerificationView extends VerticalLayout {
         if (securityService.getAuthenticatedUser() != null) {
             String correo = securityService.getAuthenticatedUser().getUsername();
 
+            getStyle().setBackground("#d6fdff");
+
             TextField campoCodigo = new TextField("Código de verificación: ");
 
             Button reenviar = new Button("Reenviar código");

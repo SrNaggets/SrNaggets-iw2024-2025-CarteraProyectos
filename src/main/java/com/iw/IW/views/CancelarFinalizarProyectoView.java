@@ -14,6 +14,7 @@ import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
@@ -49,6 +50,8 @@ public class CancelarFinalizarProyectoView extends VerticalLayout implements Has
 
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
+        getStyle().setBackground("#d6fdff");
+        setSizeUndefined();
         if (solicitudRepository.findById(parameter).isPresent()) {
             Solicitud solicitud = solicitudRepository.findById(parameter).get();
 
@@ -77,7 +80,8 @@ public class CancelarFinalizarProyectoView extends VerticalLayout implements Has
 
                 solicitudService.actualizarSolicitud(solicitud.getId(), solicitud);
 
-                getUI().ifPresent(ui -> ui.navigate("/finalizar/"));
+                Notification.show("Proyecto finalizado exitosamente", 3000, Notification.Position.TOP_CENTER);
+                add(new Button("Volver atrás", click -> getUI().ifPresent(ui -> ui.navigate("/finalizar"))));
             });
 
             Button cancelar = new Button("Cancelar proyecto", e -> {
@@ -86,7 +90,8 @@ public class CancelarFinalizarProyectoView extends VerticalLayout implements Has
 
                 solicitudService.actualizarSolicitud(solicitud.getId(), solicitud);
 
-                getUI().ifPresent(ui -> ui.navigate("/finalizar/"));
+                Notification.show("Proyecto cancelado exitosamente", 3000, Notification.Position.TOP_CENTER);
+                add(new Button("Volver atrás", click -> getUI().ifPresent(ui -> ui.navigate("/finalizar"))));
             });
 
 
