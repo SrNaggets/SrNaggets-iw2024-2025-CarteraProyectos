@@ -7,6 +7,7 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -26,8 +27,12 @@ public class RegisterView extends VerticalLayout {
 
     public RegisterView(){
 
-        setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
-        setAlignItems(FlexComponent.Alignment.CENTER);
+        //setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
+        //setAlignItems(FlexComponent.Alignment.CENTER);
+
+        getStyle().setBackground("url('https://files.catbox.moe/iall3h.png')");
+        setHeight("100%");
+
 
         Button login = new Button("Volver a iniciar sesión", click -> {
             getUI().ifPresent(ui -> ui.navigate("/login"));
@@ -81,10 +86,20 @@ public class RegisterView extends VerticalLayout {
 
         // Crear el formulario y agregar los componentes
         FormLayout formLayout = new FormLayout();
-        add(usernameField, passwordField, confirmPasswordField, emailField);
+        formLayout.setWidth("100%");
+
+        formLayout.setResponsiveSteps(
+                // Use one column by default
+                new FormLayout.ResponsiveStep("0", 1),
+                // Use two columns, if layout's width exceeds 500px
+                new FormLayout.ResponsiveStep("300px", 2));
+        formLayout.add(usernameField, passwordField, confirmPasswordField, emailField);
+
+        formLayout.setColspan(usernameField, 2);
+        formLayout.setColspan(emailField, 2);
 
         // Agregar los componentes a la vista
-        add(formLayout, registerButton);
+        add(new HorizontalLayout(formLayout), registerButton);
 
         }
 
