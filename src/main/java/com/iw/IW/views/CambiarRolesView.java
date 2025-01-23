@@ -37,10 +37,10 @@ public class CambiarRolesView extends VerticalLayout {
 
         List<Usuario> aux = usuarioRepository.findAll();
 
-        add(new H2("Proyectos a finalizar/cancelar:"));
+        add(new H2("Lista de usuarios:"));
 
         if(aux.isEmpty()){
-            add(new H4("No hay proyectos."));
+            add(new H4("No hay usuarios."));
         }
         else{
 

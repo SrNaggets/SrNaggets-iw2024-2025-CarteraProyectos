@@ -26,6 +26,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
     public LoginView() {
         addClassName("login-view");
         setSizeFull();
+        getStyle().setBackground("url('https://files.catbox.moe/gdf7rl.png')");
 
         setJustifyContentMode(JustifyContentMode.CENTER);
         setAlignItems(Alignment.CENTER);

@@ -34,14 +34,9 @@ public class EjecutarProyectosView extends VerticalLayout {
 
         add(new HorizontalLayout(logout, principal));
 
-        List<Solicitud> aux = solicitudRepository.findAllByOrderByPrioridadDesc();
-        List<Solicitud> aux2 = new java.util.ArrayList<>(List.of());
+        List<Solicitud> aux = solicitudRepository.findByEstado("priorizado");
 
-        for(Solicitud solAux : aux){
-            if(!solAux.getEstado().equals("priorizado")){
-                aux2.add(solAux);
-            }
-        }
+
 
         add(new H2("Proyectos a ejecutar:"));
 
