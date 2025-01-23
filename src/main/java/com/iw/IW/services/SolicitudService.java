@@ -13,6 +13,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.server.StreamResource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -144,7 +145,7 @@ public class SolicitudService {
         }
     }
 
-
+    @Async
     public void eliminarSolicitud(Long id, Usuario usuario) {
         Optional<Solicitud> solicitudExistente = solicitudRepository.findById(id);
         if (solicitudExistente.isPresent()) {
