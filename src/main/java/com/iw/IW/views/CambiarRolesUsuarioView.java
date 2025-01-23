@@ -62,6 +62,8 @@ public class CambiarRolesUsuarioView extends VerticalLayout implements HasUrlPar
 
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
+        getStyle().setBackground("#d6fdff");
+        setSizeUndefined();
         if (usuarioRepository.findById(parameter).isPresent()) {
             Usuario usuario = usuarioRepository.findById(parameter).get();
 

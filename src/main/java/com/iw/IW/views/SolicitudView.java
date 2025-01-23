@@ -65,6 +65,9 @@ public class SolicitudView extends VerticalLayout {
 
         UserDetails user = securityService.getAuthenticatedUser();
 
+        getStyle().setBackground("#d6fdff");
+
+
         if (user != null) {
 
             Button logout = new Button("Logout", click ->

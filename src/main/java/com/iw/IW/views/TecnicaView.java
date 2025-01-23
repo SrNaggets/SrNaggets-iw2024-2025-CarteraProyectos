@@ -39,8 +39,11 @@ public class TecnicaView extends VerticalLayout implements HasUrlParameter<Long>
 
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
+        getStyle().setBackground("#d6fdff");
+        setSizeUndefined();
         if (solicitudRepository.findById(parameter).isPresent()) {
             Solicitud solicitud = solicitudRepository.findById(parameter).get();
+
 
             Button volver = new Button("Volver a solicitudes");
             volver.addClickListener(e -> {

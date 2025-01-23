@@ -2,6 +2,7 @@ package com.iw.IW.views;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.login.LoginForm;
@@ -57,6 +58,8 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
         Button registro = new Button("Crear nueva cuenta", e -> {
             UI.getCurrent().navigate("/register");
         });
+
+        registro.addThemeVariants(ButtonVariant.LUMO_CONTRAST, ButtonVariant.LUMO_PRIMARY);
 
         add(new H1("Cartera de proyectos de la UCA"), login, registro);
     }

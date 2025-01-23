@@ -27,6 +27,8 @@ public class CIOPriorizarView extends VerticalLayout {
     public CIOPriorizarView(@Autowired SecurityService securityService, @Autowired SolicitudService solicitudService){
         setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         setAlignItems(FlexComponent.Alignment.AUTO);
+        getStyle().setBackground("#d6fdff");
+        setSizeUndefined();
 
         Button logout = new Button("Logout", click -> securityService.logout());
         Button principal = new Button("Volver a menú principal", click -> getUI().ifPresent(ui -> ui.navigate("")));

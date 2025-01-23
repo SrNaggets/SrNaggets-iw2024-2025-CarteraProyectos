@@ -51,6 +51,8 @@ public class ProyectoCIOView extends VerticalLayout implements HasUrlParameter<L
 
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
+        getStyle().setBackground("#d6fdff");
+        setSizeUndefined();
         if (proyectoRepository.findById(parameter).isPresent()) {
             Proyecto proyecto = proyectoRepository.findById(parameter).get();
             Solicitud solicitud = proyecto.getSolicitud();

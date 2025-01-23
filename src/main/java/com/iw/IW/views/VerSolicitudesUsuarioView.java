@@ -26,6 +26,8 @@ public class VerSolicitudesUsuarioView extends VerticalLayout {
     public VerSolicitudesUsuarioView(@Autowired SecurityService securityService, @Autowired SolicitudRepository solicitudRepository, @Autowired UsuarioRepository usuarioRepository){
         setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         setAlignItems(FlexComponent.Alignment.AUTO);
+        getStyle().setBackground("#d6fdff");
+        setSizeUndefined();
 
         Button logout = new Button("Logout", click -> securityService.logout());
 

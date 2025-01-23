@@ -24,6 +24,8 @@ public class ProyectosCIOView extends VerticalLayout {
     public ProyectosCIOView(@Autowired SecurityService securityService, @Autowired ProyectoRepository proyectoRepository){
         setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         setAlignItems(FlexComponent.Alignment.AUTO);
+        getStyle().setBackground("#d6fdff");
+        setSizeUndefined();
 
         Button principal = new Button("Volver a menú principal", click -> getUI().ifPresent(ui -> ui.navigate("")));
         Button logout = new Button("Logout", click -> securityService.logout());

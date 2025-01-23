@@ -25,6 +25,9 @@ import java.util.List;
 public class CancelarFinalizarProyectosView extends VerticalLayout {
 
     public CancelarFinalizarProyectosView(@Autowired SecurityService securityService, @Autowired SolicitudService solicitudService){
+        getStyle().setBackground("#d6fdff");
+        setSizeUndefined();
+
         setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         setAlignItems(FlexComponent.Alignment.AUTO);
 

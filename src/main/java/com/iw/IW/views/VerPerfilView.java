@@ -54,6 +54,8 @@ public class VerPerfilView extends VerticalLayout implements HasUrlParameter<Lon
     public void setParameter(BeforeEvent event, Long parameter) {
         if (usuarioRepository.findById(parameter).isPresent() &&  usuarioRepository.findById(parameter).get().getId().equals(usuarioRepository.findByCorreo(securityService.getAuthenticatedUser().getUsername()).get().getId())) {
             Usuario usuario = usuarioRepository.findById(parameter).get();
+            getStyle().setBackground("#d6fdff");
+            setSizeUndefined();
 
             Button principal = new Button("Volver a menú principal", click -> getUI().ifPresent(ui -> ui.navigate("")));
             add(principal);

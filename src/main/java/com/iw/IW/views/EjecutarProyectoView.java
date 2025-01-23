@@ -49,6 +49,8 @@ public class EjecutarProyectoView extends VerticalLayout implements HasUrlParame
 
     @Override
     public void setParameter(BeforeEvent event, Long parameter) {
+        getStyle().setBackground("#d6fdff");
+        setSizeUndefined();
         if (solicitudRepository.findById(parameter).isPresent()) {
             Solicitud solicitud = solicitudRepository.findById(parameter).get();
 
