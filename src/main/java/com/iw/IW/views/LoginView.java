@@ -26,7 +26,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
     public LoginView() {
         addClassName("login-view");
         setSizeFull();
-        getStyle().setBackground("url('https://files.catbox.moe/gdf7rl.png')");
+        getStyle().setBackground("url('https://files.catbox.moe/gqdyar.png')");
 
         setJustifyContentMode(JustifyContentMode.CENTER);
         setAlignItems(Alignment.CENTER);
@@ -58,7 +58,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
             UI.getCurrent().navigate("/register");
         });
 
-        add(new H1("Cartera de proyectos de IW"), login, registro);
+        add(new H1("Cartera de proyectos de la UCA"), login, registro);
     }
 
     @Override
